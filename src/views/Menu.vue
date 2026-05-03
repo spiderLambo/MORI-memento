@@ -4,7 +4,7 @@
     <header>
         <h1>MORI! memento</h1>
         <ul>
-            <li><RouterLink to="/jouer">Jouer</RouterLink></li>
+            <li><RouterLink to="/M">Jouer</RouterLink></li>
         </ul>
     </header>
 </template>
