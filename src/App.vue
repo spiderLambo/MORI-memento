@@ -1,14 +1,15 @@
 <script setup>
-  import Menu from './components/Menu.vue';
+  // import Menu from './views/Menu.vue';
 </script>
 
 <template>
-  <Menu id="Menu"/>
+  <RouterView />
+  <!-- <Menu id="Menu"/> -->
 </template>
 
 <style lang="scss" scoped>
-#Menu {
-  height: 100dvh;
-  width: 100dvw;
-}
+// #Menu {
+//   height: 100dvh;
+//   width: 100dvw;
+// }
 </style>

@@ -4,7 +4,7 @@
     <header>
         <h1>MORI! memento</h1>
         <ul>
-            <li><a href="#">Jouer</a></li>
+            <li><RouterLink to="/jouer">Jouer</RouterLink></li>
         </ul>
     </header>
 </template>
@@ -17,6 +17,8 @@ header {
     align-items: center;
     justify-content: center;
     color: #da0005;
+    height: 100dvh;
+    width: 100dvw;
 
     h1 {
         font-size: 25vh;
