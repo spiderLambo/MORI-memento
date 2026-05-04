@@ -1,8 +1,8 @@
 <script setup>
 const props = defineProps({
-    position : Array,
-    sprite : Number
-})
+  position: Array,
+  sprite: Number,
+});
 
 function getImgUrl() {
   return new URL(
@@ -13,8 +13,13 @@ function getImgUrl() {
 </script>
 
 <template>
-    <img :src="getImgUrl()"
-    :style="{ top: props.position[1] * 8.3 + 'vh', left: props.position[0] * 16.6 + 'vw' }">
+  <img
+    :src="getImgUrl()"
+    :style="{
+      top: props.position[1] * 16.6 + 'vh',
+      left: props.position[0] * 8.3 + 'vw',
+    }"
+  />
 </template>
 
 <style lang="scss" scoped>
