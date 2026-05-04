@@ -42,21 +42,37 @@ function handleKeydown(e) {
   if (e.key == "ArrowLeft") direction.value = "gauche";
   else if (e.key == "ArrowRight") direction.value = "droite";
   if (bouge) {
-    if (
-      e.key == "ArrowDown" &&
-      !verifieValeurs(props.interdis, top.value + 1, left.value)
-    )
-      top.value += 1;
-    else if (
-      e.key == "ArrowUp" &&
-      !verifieValeurs(props.interdis, top.value - 1, left.value)
-    )
-      top.value -= 1;
-    else if (
-      e.key == "ArrowLeft" &&
-      !verifieValeurs(props.interdis, top.value, left.value - 1)
-    ) {
-      left.value -= 1;
+    if (e.key == "ArrowDown") {
+      if (
+        props.tp.bas.positions.some(
+          ([x, y]) => x === top.value && y === left.value,
+        )
+      ) {
+        router.push(props.tp.bas.link);
+      }
+      if (!verifieValeurs(props.interdis, top.value + 1, left.value))
+        top.value += 1;
+    } else if (e.key == "ArrowUp") {
+      if (
+        props.tp.haut.positions.some(
+          ([x, y]) => x === top.value && y === left.value,
+        )
+      ) {
+        router.push(props.tp.haut.link);
+      }
+      if (!verifieValeurs(props.interdis, top.value - 1, left.value))
+        top.value -= 1;
+    } else if (e.key == "ArrowLeft") {
+      if (
+        props.tp.gauche.positions.some(
+          ([x, y]) => x === top.value && y === left.value,
+        )
+      ) {
+        router.push(props.tp.gauche.link);
+      }
+      if (!verifieValeurs(props.interdis, top.value, left.value - 1)) {
+        left.value -= 1;
+      }
     } else if (e.key == "ArrowRight") {
       if (
         props.tp.droite.positions.some(
