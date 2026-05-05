@@ -80,6 +80,7 @@ section {
   width: 100dvw;
   display: flex;
   flex-direction: row-reverse;
+  position: relative;
 
   img {
     height: 100dvh;
