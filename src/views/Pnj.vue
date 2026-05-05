@@ -1,14 +1,11 @@
 <script setup>
 const props = defineProps({
   position: Array,
-  sprite: Number,
+  sprite: String,
 });
 
 function getImgUrl() {
-  return new URL(
-    "../assets/villageois/courDroite/pnj" + props.sprite + ".svg",
-    import.meta.url,
-  ).href;
+  return new URL("../assets/pnj/" + props.sprite, import.meta.url).href;
 }
 </script>
 

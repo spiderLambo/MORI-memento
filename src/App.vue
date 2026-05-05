@@ -2,6 +2,7 @@
 import { provide, ref } from "vue";
 
 const pnjPos = ref([0, 0]);
+const spriteLink = ref("");
 
 async function pnjMouvement(poss) {
   for (const pos of poss) {
@@ -9,6 +10,7 @@ async function pnjMouvement(poss) {
       setTimeout(() => {
         pnjPos.value[0] = pos[0];
         pnjPos.value[1] = pos[1];
+        spriteLink.value = pos[3];
         resolve();
       }, pos[2]),
     );
@@ -17,6 +19,7 @@ async function pnjMouvement(poss) {
 
 provide("pnjMouvement", pnjMouvement);
 provide("pnjPos", pnjPos);
+provide("spriteLink", spriteLink);
 </script>
 
 <template>

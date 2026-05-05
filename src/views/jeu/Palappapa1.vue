@@ -5,14 +5,15 @@ import Pnj from "../Pnj.vue";
 
 const pnjMouvement = inject("pnjMouvement");
 const pnjPos = inject("pnjPos");
+const spriteLink = inject("spriteLink");
 pnjMouvement([
-  [6, 3, 0],
-  [7, 3, 400],
-  [8, 3, 400],
-  [9, 3, 1150],
-  [10, 3, 400],
-  [11, 3, 1150],
-  [-1, -1, 400],
+  [6, 3, 0, "secte/courDroite/pnj1.svg"],
+  [7, 3, 400, "secte/courDroite/pnj2.svg"],
+  [8, 3, 400, "secte/courDroite/pnj3.svg"],
+  [9, 3, 1150, "secte/courDroite/pnj2.svg"],
+  [10, 3, 400, "secte/courDroite/pnj1.svg"],
+  [11, 3, 1150, "secte/courDroite/pnj2.svg"],
+  [-1, -1, 400, "secte/courDroite/pnj3.svg"],
 ]);
 </script>
 
@@ -20,7 +21,7 @@ pnjMouvement([
   <section>
     <img src="../../assets/Jeu/palappapa/1/fg.png" />
   </section>
-  <Pnj :position="pnjPos" :sprite="1" />
+  <Pnj :position="pnjPos" :sprite="spriteLink" />
   <Poppy
     :spawn="[2, 2]"
     :tp="{
@@ -30,10 +31,10 @@ pnjMouvement([
       },
       droite: {
         positions: [
-          [2, 10],
-          [3, 10],
-          [4, 10],
-          [5, 10],
+          [2, 11],
+          [3, 11],
+          [4, 11],
+          [5, 11],
         ],
         link: `/O`,
       },
