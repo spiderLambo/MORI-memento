@@ -68,7 +68,9 @@ attendre(5450);
   <section>
     <img src="../../assets/Jeu/palappapa/2/fg.png" id="fg" />
     <img src="../../assets/Jeu/palappapa/2/fleur.svg" id="fleur" />
-    <h1 v-if="event1Declanche">Des fleurs ont poussé dans ma cervelle</h1>
+    <Transition name="fade">
+      <h1 v-if="event1Declanche">Des fleurs ont poussé dans ma cervelle</h1>
+    </Transition>
     <Pnj :position="pnjPos" :sprite="spriteLink" />
     <Poppy
       @move="onPoppyMove"
@@ -80,8 +82,13 @@ attendre(5450);
           link: ``,
         },
         droite: {
-          positions: [],
-          link: ``,
+          positions: [
+            [2, 11],
+            [3, 11],
+            [4, 11],
+            [5, 11],
+          ],
+          link: `/R`,
         },
         haut: {
           positions: [],
@@ -130,6 +137,13 @@ section {
     left: 50vw;
     top: 50vh;
     aspect-ratio: 812 / 354;
+  }
+
+  .fade-enter-active {
+    transition: opacity 0.2s ease-in-out;
+  }
+  .fade-enter-from {
+    opacity: 0;
   }
 
   h1 {
