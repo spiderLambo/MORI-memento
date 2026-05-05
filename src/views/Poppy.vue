@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onUnmounted } from "vue";
+import { ref, onUnmounted, inject } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -8,7 +8,12 @@ const props = defineProps({
   interdis: Array,
   spawn: Array,
   tp: Object,
+  spriteType: Number,
 });
+
+const emit = defineEmits(["move"]);
+
+const peuxBouger = inject("peuxBouger");
 
 const top = ref(props.spawn[0]);
 const left = ref(props.spawn[1]);
@@ -17,15 +22,19 @@ let direction = ref("droite");
 
 function getImgUrl() {
   return new URL(
-    "../assets/poppy/" + direction.value + "/1/poppy" + sprite.value + ".svg",
+    "../assets/poppy/" +
+      direction.value +
+      "/" +
+      props.spriteType +
+      "/poppy" +
+      sprite.value +
+      ".svg",
     import.meta.url,
   ).href;
 }
 
 function verifieValeurs(l, lig, col) {
   for (const x of l) {
-    console.log(lig);
-
     if (x[0] == lig && x[1] == col) {
       if (lig < 6 && col < 12) return true;
       else return false;
@@ -35,64 +44,68 @@ function verifieValeurs(l, lig, col) {
 }
 
 function handleKeydown(e) {
-  sprite.value = (sprite.value % 3) + 1;
+  if (peuxBouger.value) {
+    sprite.value = (sprite.value % 3) + 1;
 
-  let bouge = true;
+    let bouge = true;
 
-  if (e.key == "ArrowLeft") direction.value = "gauche";
-  else if (e.key == "ArrowRight") direction.value = "droite";
-  if (bouge) {
-    if (e.key == "ArrowDown") {
-      if (
-        props.tp.bas.positions.some(
-          ([x, y]) => x === top.value && y === left.value,
-        )
-      ) {
-        router.push(props.tp.bas.link);
+    if (e.key == "ArrowLeft") direction.value = "gauche";
+    else if (e.key == "ArrowRight") direction.value = "droite";
+    if (bouge) {
+      if (e.key == "ArrowDown") {
+        if (
+          props.tp.bas.positions.some(
+            ([x, y]) => x === top.value && y === left.value,
+          )
+        ) {
+          router.push(props.tp.bas.link);
+        }
+        if (!verifieValeurs(props.interdis, top.value + 1, left.value))
+          top.value += 1;
+      } else if (e.key == "ArrowUp") {
+        if (
+          props.tp.haut.positions.some(
+            ([x, y]) => x === top.value && y === left.value,
+          )
+        ) {
+          router.push(props.tp.haut.link);
+        }
+        if (!verifieValeurs(props.interdis, top.value - 1, left.value))
+          top.value -= 1;
+      } else if (e.key == "ArrowLeft") {
+        if (
+          props.tp.gauche.positions.some(
+            ([x, y]) => x === top.value && y === left.value,
+          )
+        ) {
+          router.push(props.tp.gauche.link);
+        }
+        if (!verifieValeurs(props.interdis, top.value, left.value - 1)) {
+          left.value -= 1;
+        }
+      } else if (e.key == "ArrowRight") {
+        if (
+          props.tp.droite.positions.some(
+            ([x, y]) => x === top.value && y === left.value,
+          )
+        ) {
+          router.push(props.tp.droite.link);
+        }
+        if (!verifieValeurs(props.interdis, top.value, left.value + 1)) {
+          left.value += 1;
+          direction.value = "droite";
+        }
       }
-      if (!verifieValeurs(props.interdis, top.value + 1, left.value))
-        top.value += 1;
-    } else if (e.key == "ArrowUp") {
-      if (
-        props.tp.haut.positions.some(
-          ([x, y]) => x === top.value && y === left.value,
-        )
-      ) {
-        router.push(props.tp.haut.link);
-      }
-      if (!verifieValeurs(props.interdis, top.value - 1, left.value))
-        top.value -= 1;
-    } else if (e.key == "ArrowLeft") {
-      if (
-        props.tp.gauche.positions.some(
-          ([x, y]) => x === top.value && y === left.value,
-        )
-      ) {
-        router.push(props.tp.gauche.link);
-      }
-      if (!verifieValeurs(props.interdis, top.value, left.value - 1)) {
-        left.value -= 1;
-      }
-    } else if (e.key == "ArrowRight") {
-      if (
-        props.tp.droite.positions.some(
-          ([x, y]) => x === top.value && y === left.value,
-        )
-      ) {
-        router.push(props.tp.droite.link);
-      }
-      if (!verifieValeurs(props.interdis, top.value, left.value + 1)) {
-        left.value += 1;
-        direction.value = "droite";
-      }
+      bouge = false;
     }
-    bouge = false;
   }
 
   if (top.value < 0) top.value = 0;
   if (top.value >= 6) top.value = 5;
   if (left.value < 0) left.value = 0;
   if (left.value >= 12) left.value = 11;
+
+  emit("move", { top: top.value, left: left.value });
 }
 
 document.addEventListener("keydown", handleKeydown);

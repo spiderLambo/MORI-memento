@@ -1,11 +1,13 @@
 <script setup>
-import { inject } from "vue";
+import { inject, ref, provide } from "vue";
 import Poppy from "../Poppy.vue";
 import Pnj from "../Pnj.vue";
 
 const pnjMouvement = inject("pnjMouvement");
 const pnjPos = inject("pnjPos");
 const spriteLink = inject("spriteLink");
+const peuxBouger = ref(false);
+provide("peuxBouger", peuxBouger);
 pnjMouvement([
   [6, 3, 0, "secte/courDroite/pnj1.svg"],
   [7, 3, 400, "secte/courDroite/pnj2.svg"],
@@ -13,8 +15,16 @@ pnjMouvement([
   [9, 3, 1150, "secte/courDroite/pnj2.svg"],
   [10, 3, 400, "secte/courDroite/pnj1.svg"],
   [11, 3, 1150, "secte/courDroite/pnj2.svg"],
-  [-1, -1, 400, "secte/courDroite/pnj3.svg"],
+  [-1, -1, 400, ""],
 ]);
+async function attendre(dure) {
+  peuxBouger.value = false;
+  setTimeout(() => {
+    peuxBouger.value = true;
+  }, dure);
+}
+
+attendre(3900);
 </script>
 
 <template>
@@ -24,6 +34,7 @@ pnjMouvement([
   <Pnj :position="pnjPos" :sprite="spriteLink" />
   <Poppy
     :spawn="[2, 2]"
+    :sprite-type="1"
     :tp="{
       gauche: {
         positions: [],
