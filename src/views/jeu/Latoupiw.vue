@@ -75,12 +75,6 @@ pnjMouvement(
   true,
 );
 
-async function attendre(dure) {
-  peuxBouger.value = false;
-  setTimeout(() => {
-    peuxBouger.value = true;
-  }, dure);
-}
 peuxBouger.value = true;
 </script>
 
