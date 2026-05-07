@@ -1,7 +1,7 @@
 a = "["
-for i in range(1):
-    for j in range(4, 8):
-        a += f"[{i},{j}],"
+for x in range(12):
+    for y in range(5):
+        a += f"[{y},{x}],"
 
 a = a[:-1] + "]"
 

@@ -19,11 +19,10 @@ peuxBouger.value = true;
 
 <template>
   <section>
-    <img src="../../assets/Jeu/latoupiw/fg.png" id="fg" />
     <Poppy
-      :spawn="[5, 5]"
+      :spawn="[2, 11]"
       :sprite-type="2"
-      :sprite-sens="'droite'"
+      :sprite-sens="'gauche'"
       :tp="{
         gauche: {
           positions: [],
@@ -31,12 +30,12 @@ peuxBouger.value = true;
         },
         droite: {
           positions: [
+            [1, 11],
             [2, 11],
             [3, 11],
             [4, 11],
-            [5, 11],
           ],
-          link: `/m1`,
+          link: `/M2`,
         },
         haut: {
           positions: [],
@@ -61,11 +60,26 @@ peuxBouger.value = true;
         [0, 10],
         [0, 11],
         [1, 0],
-        [1, 1],
-        [1, 2],
-        [1, 11],
         [2, 0],
+        [3, 0],
+        [4, 0],
+        [5, 0],
+        [0, 1],
+        [1, 1],
         [2, 1],
+        [3, 1],
+        [4, 1],
+        [5, 1],
+        [5, 2],
+        [5, 3],
+        [5, 4],
+        [5, 5],
+        [5, 6],
+        [5, 7],
+        [5, 8],
+        [5, 9],
+        [5, 10],
+        [5, 11],
       ]"
     />
   </section>
@@ -73,16 +87,11 @@ peuxBouger.value = true;
 
 <style lang="scss" scoped>
 section {
-  background: no-repeat url("../../assets/Jeu/latoupiw/bg.png") center/cover;
+  background: no-repeat
+    url("../../assets/Jeu/lemanquidecoupedescocatrix/2/bg.png") center/cover;
   height: 100dvh;
   width: 100dvw;
   position: relative;
   display: flex;
-
-  #fg {
-    height: 100dvh;
-    width: 100dvw;
-    z-index: 100;
-  }
 }
 </style>

@@ -35,6 +35,7 @@ attendre(3900);
   <Poppy
     :spawn="[2, 2]"
     :sprite-type="1"
+    :sprite-sens="'droite'"
     :tp="{
       gauche: {
         positions: [],

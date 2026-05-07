@@ -76,6 +76,7 @@ attendre(5450);
       @move="onPoppyMove"
       :spawn="[2, 0]"
       :sprite-type="spriteType"
+      :sprite-sens="'droite'"
       :tp="{
         gauche: {
           positions: [],

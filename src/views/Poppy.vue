@@ -9,6 +9,7 @@ const props = defineProps({
   spawn: Array,
   tp: Object,
   spriteType: Number,
+  spriteSens: String,
 });
 
 const emit = defineEmits(["move"]);
@@ -18,7 +19,7 @@ const peuxBouger = inject("peuxBouger");
 const top = ref(props.spawn[0]);
 const left = ref(props.spawn[1]);
 let sprite = ref(2);
-let direction = ref("droite");
+let direction = ref(props.spriteSens);
 
 function getImgUrl() {
   return new URL(

@@ -1,22 +1,12 @@
 <script setup>
 import { inject, ref, provide } from "vue";
 import Poppy from "../Poppy.vue";
-import Pnj from "../Pnj.vue";
 
 const pnjMouvement = inject("pnjMouvement");
 const pnjPos = inject("pnjPos");
 const spriteLink = inject("spriteLink");
 const peuxBouger = ref(false);
 provide("peuxBouger", peuxBouger);
-// pnjMouvement([
-//   [6, 3, 0, "secte/courDroite/pnj1.svg"],
-//   [7, 3, 400, "secte/courDroite/pnj2.svg"],
-//   [8, 3, 400, "secte/courDroite/pnj3.svg"],
-//   [9, 3, 1150, "secte/courDroite/pnj2.svg"],
-//   [10, 3, 400, "secte/courDroite/pnj1.svg"],
-//   [11, 3, 1150, "secte/courDroite/pnj2.svg"],
-//   [-1, -1, 400, ""],
-// ]);
 
 async function attendre(dure) {
   peuxBouger.value = false;
@@ -29,11 +19,9 @@ peuxBouger.value = true;
 
 <template>
   <section>
-    <img src="../../assets/Jeu/palappapa/3/fg.png" id="fg" />
-    <!-- <Pnj :position="pnjPos" :sprite="spriteLink" /> -->
+    <img src="../../assets/Jeu/doom3/fg.png" id="fg" />
     <Poppy
-      @move="onPoppyMove"
-      :spawn="[4, 0]"
+      :spawn="[5, 0]"
       :sprite-type="2"
       :sprite-sens="'droite'"
       :tp="{
@@ -46,13 +34,8 @@ peuxBouger.value = true;
           link: ``,
         },
         haut: {
-          positions: [
-            [0, 4],
-            [0, 5],
-            [0, 6],
-            [0, 7],
-          ],
-          link: `/I`,
+          positions: [],
+          link: ``,
         },
         bas: {
           positions: [],
@@ -62,23 +45,64 @@ peuxBouger.value = true;
       :interdis="[
         [0, 0],
         [1, 0],
+        [2, 0],
+        [3, 0],
+        [4, 0],
         [0, 1],
         [1, 1],
+        [2, 1],
+        [3, 1],
+        [4, 1],
         [0, 2],
         [1, 2],
+        [2, 2],
+        [3, 2],
+        [4, 2],
         [0, 3],
+        [1, 3],
+        [2, 3],
+        [3, 3],
+        [4, 3],
+        [0, 4],
+        [1, 4],
+        [2, 4],
+        [3, 4],
+        [4, 4],
+        [0, 5],
+        [1, 5],
+        [2, 5],
+        [3, 5],
+        [4, 5],
+        [0, 6],
+        [1, 6],
+        [2, 6],
+        [3, 6],
+        [4, 6],
+        [0, 7],
+        [1, 7],
+        [2, 7],
+        [3, 7],
+        [4, 7],
+        [0, 8],
+        [1, 8],
+        [2, 8],
+        [3, 8],
+        [4, 8],
         [0, 9],
-
-        [5, 9],
-        [5, 8],
+        [1, 9],
+        [2, 9],
+        [3, 9],
+        [4, 9],
         [0, 10],
+        [1, 10],
+        [2, 10],
+        [3, 10],
         [4, 10],
-        [5, 10],
         [0, 11],
         [1, 11],
+        [2, 11],
         [3, 11],
         [4, 11],
-        [5, 11],
       ]"
     />
   </section>
@@ -86,7 +110,7 @@ peuxBouger.value = true;
 
 <style lang="scss" scoped>
 section {
-  background: no-repeat url("../../assets/Jeu/palappapa/3/bg.png") center/cover;
+  background: no-repeat url("../../assets/Jeu/doom3/bg.png") center/cover;
   height: 100dvh;
   width: 100dvw;
   position: relative;
@@ -95,7 +119,6 @@ section {
   #fg {
     height: 100dvh;
     width: 100dvw;
-    z-index: 100;
   }
 }
 </style>

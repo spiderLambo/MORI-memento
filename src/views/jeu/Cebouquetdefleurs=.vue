@@ -19,70 +19,71 @@ peuxBouger.value = true;
 
 <template>
   <section>
-    <img src="../../assets/Jeu/latoupiw/fg.png" id="fg" />
     <Poppy
-      :spawn="[5, 5]"
+      :spawn="[0, 5]"
       :sprite-type="2"
       :sprite-sens="'droite'"
       :tp="{
         gauche: {
-          positions: [],
-          link: ``,
+          positions: [
+            [1, 0],
+            [2, 0],
+            [3, 0],
+            [4, 0],
+          ],
+          link: `/n`,
         },
         droite: {
           positions: [
+            [1, 11],
             [2, 11],
             [3, 11],
             [4, 11],
-            [5, 11],
           ],
-          link: `/m1`,
+          link: `/t`,
         },
         haut: {
-          positions: [],
-          link: ``,
+          positions: [
+            [0, 1],
+            [0, 2],
+            [0, 3],
+            [0, 4],
+            [0, 5],
+            [0, 6],
+            [0, 7],
+            [0, 8],
+            [0, 9],
+            [0, 10],
+          ],
+          link: `/o1`,
         },
         bas: {
-          positions: [],
-          link: ``,
+          positions: [
+            [5, 1],
+            [5, 2],
+            [5, 3],
+            [5, 4],
+            [5, 5],
+            [5, 6],
+            [5, 7],
+            [5, 8],
+            [5, 9],
+            [5, 10],
+          ],
+          link: `/e2`,
         },
       }"
-      :interdis="[
-        [0, 0],
-        [0, 1],
-        [0, 2],
-        [0, 3],
-        [0, 4],
-        [0, 5],
-        [0, 6],
-        [0, 7],
-        [0, 8],
-        [0, 9],
-        [0, 10],
-        [0, 11],
-        [1, 0],
-        [1, 1],
-        [1, 2],
-        [1, 11],
-        [2, 0],
-        [2, 1],
-      ]"
+      :interdis="[]"
     />
   </section>
 </template>
 
 <style lang="scss" scoped>
 section {
-  background: no-repeat url("../../assets/Jeu/latoupiw/bg.png") center/cover;
+  background: no-repeat url("../../assets/Jeu/cebouquetdefleurs=\)/1/bg.png")
+    center/cover;
   height: 100dvh;
   width: 100dvw;
   position: relative;
-  display: flex;
-
-  #fg {
-    height: 100dvh;
-    width: 100dvw;
-    z-index: 100;
-  }
 }
 </style>

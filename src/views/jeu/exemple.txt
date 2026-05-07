@@ -19,7 +19,7 @@ peuxBouger.value = true;
 
 <template>
   <section>
-    <img src="../../assets/Jeu/latoupiw/fg.png" id="fg" />
+    <img src="../../assets/Jeu/latpoupiw/fg.png" id="fg" />
     <Poppy
       :spawn="[5, 5]"
       :sprite-type="2"
@@ -30,13 +30,8 @@ peuxBouger.value = true;
           link: ``,
         },
         droite: {
-          positions: [
-            [2, 11],
-            [3, 11],
-            [4, 11],
-            [5, 11],
-          ],
-          link: `/m1`,
+          positions: [],
+          link: ``,
         },
         haut: {
           positions: [],
@@ -47,33 +42,14 @@ peuxBouger.value = true;
           link: ``,
         },
       }"
-      :interdis="[
-        [0, 0],
-        [0, 1],
-        [0, 2],
-        [0, 3],
-        [0, 4],
-        [0, 5],
-        [0, 6],
-        [0, 7],
-        [0, 8],
-        [0, 9],
-        [0, 10],
-        [0, 11],
-        [1, 0],
-        [1, 1],
-        [1, 2],
-        [1, 11],
-        [2, 0],
-        [2, 1],
-      ]"
+      :interdis="[]"
     />
   </section>
 </template>
 
 <style lang="scss" scoped>
 section {
-  background: no-repeat url("../../assets/Jeu/latoupiw/bg.png") center/cover;
+  background: no-repeat url("../../assets/Jeu/latpoupiw/bg.png") center/cover;
   height: 100dvh;
   width: 100dvw;
   position: relative;
