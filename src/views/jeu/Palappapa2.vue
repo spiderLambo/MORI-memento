@@ -43,11 +43,11 @@ function event1() {
 
   attendre(3500);
   pnjMouvement([
-    [8, 2, 0, "secte/courDroite/pnj1.svg"],
-    [9, 2, 400, "secte/courDroite/pnj2.svg"],
-    [9, 3, 1150, "secte/courDroite/pnj3.svg"],
-    [10, 3, 400, "secte/courDroite/pnj2.svg"],
-    [11, 3, 1150, "secte/courDroite/pnj1.svg"],
+    [8, 2, 0, "secte/courDroiteFleur/pnj1.svg"],
+    [9, 2, 400, "secte/courDroiteFleur/pnj2.svg"],
+    [9, 3, 1150, "secte/courDroiteFleur/pnj3.svg"],
+    [10, 3, 400, "secte/courDroiteFleur/pnj2.svg"],
+    [11, 3, 1150, "secte/courDroiteFleur/pnj1.svg"],
     [-1, -1, 400, ""],
   ]);
 }

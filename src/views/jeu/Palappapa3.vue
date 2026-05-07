@@ -8,15 +8,15 @@ const pnjPos = inject("pnjPos");
 const spriteLink = inject("spriteLink");
 const peuxBouger = ref(false);
 provide("peuxBouger", peuxBouger);
-// pnjMouvement([
-//   [6, 3, 0, "secte/courDroite/pnj1.svg"],
-//   [7, 3, 400, "secte/courDroite/pnj2.svg"],
-//   [8, 3, 400, "secte/courDroite/pnj3.svg"],
-//   [9, 3, 1150, "secte/courDroite/pnj2.svg"],
-//   [10, 3, 400, "secte/courDroite/pnj1.svg"],
-//   [11, 3, 1150, "secte/courDroite/pnj2.svg"],
-//   [-1, -1, 400, ""],
-// ]);
+pnjMouvement([
+  [1, 3, 0, "secte/courDroiteFleur/pnj1.svg"],
+  [2, 3, 400, "secte/courDroiteFleur/pnj2.svg"],
+  [3, 3, 400, "secte/courDroiteFleur/pnj3.svg"],
+  [4, 3, 1150, "secte/courDroiteFleur/pnj2.svg"],
+  [4, 2, 400, "secte/courDroiteFleur/pnj1.svg"],
+  [5, 2, 1150, "secte/courDroiteFleur/pnj2.svg"],
+  [6, 2, 400, "secte/standFrontFleur/pnj1.svg"],
+]);
 
 async function attendre(dure) {
   peuxBouger.value = false;
@@ -24,13 +24,63 @@ async function attendre(dure) {
     peuxBouger.value = true;
   }, dure);
 }
-peuxBouger.value = true;
+
+const event1Declanche = ref(false);
+const event2Declanche = ref(false);
+let event1Positions = [
+  [1, 3],
+  [2, 3],
+  [3, 3],
+  [4, 3],
+  [4, 4],
+  [5, 4],
+];
+let event2Positions = [
+  [0, 4],
+  [1, 4],
+  [2, 4],
+  [3, 4],
+  [3, 5],
+  [4, 5],
+  [5, 5],
+];
+
+function event1() {
+  event1Declanche.value = true;
+}
+
+function event2() {
+  event2Declanche.value = true;
+}
+
+function onPoppyMove({ top, left }) {
+  console.log(top + " " + left);
+
+  if (
+    event1Positions.some(([y, x]) => x == left && y == top) &&
+    !event1Declanche.value
+  ) {
+    event1();
+  }
+  if (
+    event2Positions.some(([y, x]) => x == left && y == top) &&
+    !event2Declanche.value
+  ) {
+    event2();
+  }
+}
+
+attendre(3900);
 </script>
 
 <template>
   <section>
     <img src="../../assets/Jeu/palappapa/3/fg.png" id="fg" />
-    <!-- <Pnj :position="pnjPos" :sprite="spriteLink" /> -->
+    <Transition name="fade">
+      <h1 v-if="event2Declanche">Moi j'tourne autour de toi</h1>
+      <h1 v-else-if="event1Declanche">Nan, j'veux qu'on s'oublie pas</h1>
+    </Transition>
+    <Pnj :position="pnjPos" :sprite="spriteLink" />
     <Poppy
       @move="onPoppyMove"
       :spawn="[4, 0]"
@@ -79,6 +129,9 @@ peuxBouger.value = true;
         [3, 11],
         [4, 11],
         [5, 11],
+
+        // PNJ
+        [2, 6],
       ]"
     />
   </section>
@@ -96,6 +149,21 @@ section {
     height: 100dvh;
     width: 100dvw;
     z-index: 100;
+  }
+
+  .fade-enter-active {
+    transition: opacity 0.2s ease-in-out;
+  }
+  .fade-enter-from {
+    opacity: 0;
+  }
+
+  h1 {
+    font-size: 7.5vh;
+    position: absolute;
+    left: 10px;
+    color: whitesmoke;
+    text-shadow: 1px 1px 2px red;
   }
 }
 </style>
