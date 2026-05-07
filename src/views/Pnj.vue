@@ -24,6 +24,6 @@ img {
   position: absolute;
   height: 16.6vh;
   width: 8.3vw;
-  aspect-ratio: 794 / 805;
+  aspect-ratio: auto;
 }
 </style>
