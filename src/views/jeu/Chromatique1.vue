@@ -57,27 +57,27 @@ function event1() {
 
 function event2() {
   event2Declanche.value = true;
-  afficherImage(0.2, 0);
+  afficherImage(1, 0);
 }
 
 function event3() {
   event3Declanche.value = true;
-  afficherImage(0.5, 0.1);
+  afficherImage(0.7, 0.1);
 }
 
 function event4() {
   event4Declanche.value = true;
-  afficherImage(0.1, 1);
+  afficherImage(0.5, 0.2);
 }
 
 function event5() {
   event5Declanche.value = true;
-  afficherImage(0, 1.5);
+  afficherImage(0.2, 0.7);
 }
 
 function event6() {
   event6Declanche.value = true;
-  afficherImage(0, 6);
+  afficherImage(0, 1.5);
   sortie.value = [1, 0];
 }
 
@@ -133,7 +133,10 @@ peuxBouger.value = true;
       </h1>
       <h1 v-else-if="event1Declanche">J'm'enfonce dans les ténèbres</h1>
     </Transition>
-    <img v-if="afficheImage" :src="getImgUrl(numImage)" id="vision" />
+    <div id="vision" v-if="afficheImage">
+      <img :src="getImgUrl(numImage)" />
+    </div>
+
     <Poppy
       style="translate: -50% -50%"
       @move="onPoppyMove"
@@ -242,9 +245,18 @@ section {
 
   #vision {
     position: fixed;
-    width: 100%;
     height: 100%;
-    z-index: 1000;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+    z-index: 100;
+
+    img {
+      aspect-ratio: auto;
+      height: 100%;
+    }
   }
 }
 </style>
