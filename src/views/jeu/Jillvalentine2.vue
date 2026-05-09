@@ -1,10 +1,44 @@
 <script setup>
 import { inject, ref, provide } from "vue";
 import Poppy from "../Poppy.vue";
+import Pnj from "../Pnj.vue";
 
-const pnjMouvement = inject("pnjMouvement");
-const pnjPos = inject("pnjPos");
-const spriteLink = inject("spriteLink");
+const room0 = inject("room0");
+const room1 = inject("room1");
+const room2 = inject("room2");
+const room3 = inject("room3");
+const room4 = inject("room4");
+const room0SpawnPos = inject("room0SpawnPos");
+const room0SpawnDir = inject("room0SpawnDir");
+room0SpawnPos.value = [0, 5];
+room0SpawnDir.value = "hautbas";
+const bg = ref(
+  `url('${new URL("../../assets/Jeu/jillvalentine/2/bg.png", import.meta.url).href}')`,
+);
+
+const sortie = ref({
+  gauche: { positions: [], link: `` },
+  droite: { positions: [], link: `` },
+  haut: { positions: [], link: `` },
+  bas: {
+    positions: [
+      [5, 2],
+      [5, 3],
+      [5, 4],
+      [5, 5],
+      [5, 6],
+      [5, 7],
+      [5, 8],
+      [5, 9],
+    ],
+    link: `/m2`,
+  },
+});
+
+room0.value = true;
+
+const spritePnj = ref("secte/haut/hautbas.svg");
+
 const peuxBouger = ref(false);
 provide("peuxBouger", peuxBouger);
 
@@ -14,44 +48,73 @@ async function attendre(dure) {
     peuxBouger.value = true;
   }, dure);
 }
+const event1Declanche = ref(false);
+const cligoteurVisible = ref(false);
+
+if (room4.value) {
+  event1Declanche.value = true;
+  bg.value = `url('${new URL("../../assets/Jeu/jillvalentine/2bis/bg.png", import.meta.url).href}')`;
+  spritePnj.value = "secte/mort/pnj4.png";
+  if (room0.value && room1.value && room2.value && room3.value && room4.value) {
+    sortie.value = {
+      gauche: { positions: [], link: `` },
+      droite: {
+        positions: [
+          [1, 11],
+          [2, 11],
+          [3, 11],
+          [4, 11],
+          [5, 11],
+        ],
+        link: `/memento`,
+      },
+      haut: { positions: [], link: `` },
+      bas: { positions: [], link: `` },
+    };
+  }
+}
+
 peuxBouger.value = true;
+
+function event1() {
+  event1Declanche.value = true;
+  attendre(0.8);
+  setTimeout(() => {
+    bg.value = `url('${new URL("../../assets/Jeu/jillvalentine/2bis/bg.png", import.meta.url).href}')`;
+    spritePnj.value = "secte/mort/pnj4.png";
+  }, 100);
+  cligoteurVisible.value = true;
+  setTimeout(() => {
+    cligoteurVisible.value = false;
+  }, 800);
+  room4.value = true;
+  if (room0.value && room1.value && room2.value && room3.value && room4.value) {
+    sortie.value = {
+      gauche: { positions: [], link: `` },
+      droite: {
+        positions: [
+          [1, 11],
+          [2, 11],
+          [3, 11],
+          [4, 11],
+          [5, 11],
+        ],
+        link: `/memento`,
+      },
+      haut: { positions: [], link: `` },
+      bas: { positions: [], link: `` },
+    };
+  }
+}
 </script>
 
 <template>
-  <section>
-    <img src="../../assets/Jeu/jillvalentine/2/fg.png" id="fg" />
+  <section :style="{ backgroundImage: bg }">
     <Poppy
       :spawn="[5, 5]"
-      :sprite-type="2"
-      :sprite-sens="'droite'"
-      :tp="{
-        gauche: {
-          positions: [],
-          link: ``,
-        },
-        droite: {
-          positions: [
-            [1, 11],
-            [2, 11],
-            [3, 11],
-            [4, 11],
-          ],
-          link: `/memento`,
-        },
-        haut: { positions: [], link: `` },
-        bas: {
-          positions: [
-            [5, 4],
-            [5, 5],
-            [5, 6],
-            [5, 7],
-            [5, 8],
-            [5, 9],
-            [5, 10],
-          ],
-          link: `/m2`,
-        },
-      }"
+      :sprite-type="1"
+      :sprite-sens="'hauthaut'"
+      :tp="sortie"
       :interdis="[
         [0, 0],
         [0, 1],
@@ -66,29 +129,80 @@ peuxBouger.value = true;
         [0, 10],
         [0, 11],
         [1, 0],
-        [1, 1],
-        [1, 2],
-        [1, 11],
         [2, 0],
+        [3, 0],
+        [4, 0],
+        [5, 0],
+        [1, 1],
         [2, 1],
+        [3, 1],
+        [4, 1],
+        [5, 1],
+
+        [5, 10],
+        [5, 11],
+
+        [1, 2],
       ]"
     />
+    <Pnj
+      :position="[2, 1]"
+      :sprite="spritePnj"
+      :class="{ clickable: !event1Declanche }"
+      @click="!event1Declanche && event1()"
+    />
+    <Transition name="fade">
+      <h1 v-if="event1Declanche" class="ev-1">
+        Ils fracassent des arabes à Gaza, et ils sont bien contents à Tel Aviv
+      </h1>
+    </Transition>
+    <div v-if="event1Declanche && cligoteurVisible" class="clignoteur"></div>
   </section>
 </template>
 
 <style lang="scss" scoped>
 section {
-  background: no-repeat url("../../assets/Jeu/jillvalentine/2bis/bg.png")
-    center/cover;
+  background: no-repeat center/cover;
   height: 100dvh;
   width: 100dvw;
   position: relative;
   display: flex;
 
-  #fg {
+  :deep(img.clickable) {
+    cursor: pointer;
+  }
+
+  h1 {
+    font-size: 7.5vh;
+    position: absolute;
+    color: whitesmoke;
+    text-shadow: 1px 1px 2px red;
+    top: 10px;
+    text-align: center;
+    left: 50%;
+    translate: -50%;
+    width: 100%;
+  }
+
+  .clignoteur {
+    position: fixed;
     height: 100dvh;
     width: 100dvw;
-    z-index: 100;
+    background-color: #000000;
+    z-index: 1000;
+    animation: clignote linear 0.1s 8;
+  }
+}
+
+@keyframes clignote {
+  0%,
+  49%,
+  100% {
+    visibility: visible;
+  }
+  50%,
+  99% {
+    visibility: hidden;
   }
 }
 </style>
