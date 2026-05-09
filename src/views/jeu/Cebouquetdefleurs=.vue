@@ -4,8 +4,17 @@ import Poppy from "../Poppy.vue";
 import Pnj from "../Pnj.vue";
 
 const room0 = inject("room0");
+const room1 = inject("room1");
+const room2 = inject("room2");
+const room3 = inject("room3");
+const room4 = inject("room4");
 const room0SpawnPos = inject("room0SpawnPos");
 const room0SpawnDir = inject("room0SpawnDir");
+
+if (!(room1.value || room2.value || room3.value || room4.value)) {
+  room0SpawnPos.value = [0, 5];
+  room0SpawnDir.value = "hautbas";
+}
 
 const spritePnj = ref("secte/haut/hauthaut.svg");
 

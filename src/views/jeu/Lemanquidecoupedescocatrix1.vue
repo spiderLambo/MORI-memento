@@ -3,11 +3,17 @@ import { inject, ref, provide } from "vue";
 import Poppy from "../Poppy.vue";
 import Pnj from "../Pnj.vue";
 
+const room0 = inject("room0");
 const room1 = inject("room1");
 const room0SpawnPos = inject("room0SpawnPos");
 const room0SpawnDir = inject("room0SpawnDir");
 room0SpawnPos.value = [5, 5];
 room0SpawnDir.value = "hauthaut";
+const bg = ref(
+  `url('${new URL("../../assets/Jeu/lemanquidecoupedescocatrix/1/bg.png", import.meta.url).href}')`,
+);
+
+room0.value = true;
 
 const spritePnj = ref("secte/haut/hauthaut.svg");
 
@@ -20,11 +26,34 @@ async function attendre(dure) {
     peuxBouger.value = true;
   }, dure);
 }
+const event1Declanche = ref(false);
+const cligoteurVisible = ref(false);
+
+if (room1.value) {
+  event1Declanche.value = true;
+  bg.value = `url('${new URL("../../assets/Jeu/lemanquidecoupedescocatrix/1bis/bg.png", import.meta.url).href}')`;
+  spritePnj.value = "secte/mort/pnj1.png";
+}
+
 peuxBouger.value = true;
+
+function event1() {
+  event1Declanche.value = true;
+  attendre(0.8);
+  setTimeout(() => {
+    bg.value = `url('${new URL("../../assets/Jeu/lemanquidecoupedescocatrix/1bis/bg.png", import.meta.url).href}')`;
+    spritePnj.value = "secte/mort/pnj1.png";
+  }, 400);
+  cligoteurVisible.value = true;
+  setTimeout(() => {
+    cligoteurVisible.value = false;
+  }, 800);
+  room1.value = true;
+}
 </script>
 
 <template>
-  <section>
+  <section :style="{ backgroundImage: bg }">
     <Poppy
       :spawn="[0, 5]"
       :sprite-type="1"
@@ -91,16 +120,28 @@ peuxBouger.value = true;
         [5, 7],
         [5, 8],
         [5, 9],
+
+        [4, 5],
       ]"
     />
-    <Pnj :position="[5, 4]" :sprite="spritePnj" class="clickable" />
+    <Pnj
+      :position="[5, 4]"
+      :sprite="spritePnj"
+      :class="{ clickable: !event1Declanche }"
+      @click="!event1Declanche && event1()"
+    />
+    <Transition name="fade">
+      <h1 v-if="event1Declanche" class="ev-1">
+        Je suis dans un champ de fleurs, il est jonché de cadavres
+      </h1>
+    </Transition>
+    <div v-if="event1Declanche && cligoteurVisible" class="clignoteur"></div>
   </section>
 </template>
 
 <style lang="scss" scoped>
 section {
-  background: no-repeat
-    url("../../assets/Jeu/lemanquidecoupedescocatrix/1/bg.png") center/cover;
+  background: no-repeat center/cover;
   height: 100dvh;
   width: 100dvw;
   position: relative;
@@ -108,6 +149,39 @@ section {
 
   :deep(img.clickable) {
     cursor: pointer;
+  }
+
+  h1 {
+    font-size: 7.5vh;
+    position: absolute;
+    color: whitesmoke;
+    text-shadow: 1px 1px 2px red;
+    bottom: 10px;
+    text-align: center;
+    left: 50%;
+    translate: -50%;
+    width: 100%;
+  }
+
+  .clignoteur {
+    position: fixed;
+    height: 100dvh;
+    width: 100dvw;
+    background-color: #000000;
+    z-index: 1000;
+    animation: clignote linear 0.1s 8;
+  }
+}
+
+@keyframes clignote {
+  0%,
+  49%,
+  100% {
+    visibility: visible;
+  }
+  50%,
+  99% {
+    visibility: hidden;
   }
 }
 </style>
