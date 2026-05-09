@@ -1,12 +1,35 @@
 <script setup>
 import { inject, ref, provide } from "vue";
 import Poppy from "../Poppy.vue";
+import Pnj from "../Pnj.vue";
 
 const pnjMouvement = inject("pnjMouvement");
-const pnjPos = inject("pnjPos");
-const spriteLink = inject("spriteLink");
+const pnjPos = ref([0, 0]);
+const spriteLink = ref("");
 const peuxBouger = ref(false);
 provide("peuxBouger", peuxBouger);
+
+pnjMouvement(
+  [
+    [1, 3, 0, "chat/stand/stand.svg"],
+    [2, 3, 400, "chat/droite/chat1.svg"],
+    [3, 3, 400, "chat/droite/chat2.svg"],
+    [4, 3, 400, "chat/droite/chat1.svg"],
+    [5, 3, 400, "chat/droite/chat2.svg"],
+    [5, 2, 400, "chat/droite/chat1.svg"],
+    [6, 2, 400, "chat/droite/chat2.svg"],
+    [6, 1, 400, "chat/droite/chat1.svg"],
+    [7, 1, 400, "chat/droite/chat2.svg"],
+    [8, 1, 400, "chat/droite/chat1.svg"],
+    [9, 1, 400, "chat/droite/chat2.svg"],
+    [9, 0, 400, "chat/droite/chat1.svg"],
+    [10, 0, 400, "chat/droite/chat2.svg"],
+    [11, 0, 400, "chat/droite/chat1.svg"],
+    [-1, -1, 400, ""],
+  ],
+  pnjPos,
+  spriteLink,
+);
 
 async function attendre(dure) {
   peuxBouger.value = false;
@@ -14,14 +37,15 @@ async function attendre(dure) {
     peuxBouger.value = true;
   }, dure);
 }
-peuxBouger.value = true;
+
+attendre(5600);
 </script>
 
 <template>
   <section>
     <Poppy
       :spawn="[4, 0]"
-      :sprite-type="2"
+      :sprite-type="3"
       :sprite-sens="'droite'"
       :tp="{
         gauche: {
@@ -70,6 +94,7 @@ peuxBouger.value = true;
         [0, 4],
       ]"
     />
+    <Pnj :sprite="spriteLink" :position="pnjPos" />
   </section>
 </template>
 

@@ -127,7 +127,7 @@ function event1() {
     />
     <Transition name="fade">
       <h1 v-if="event1Declanche" class="ev-1">
-        Je suis dans un champ de fleurs, il est jonché de cadavres
+        J’étais un bel enfant naguère, mais bon la vie m’a bien frappé
       </h1>
     </Transition>
     <div v-if="event1Declanche && cligoteurVisible" class="clignoteur"></div>
