@@ -1,5 +1,5 @@
 <script setup>
-import { inject, ref, provide } from "vue";
+import { ref, provide } from "vue";
 import Poppy from "../Poppy.vue";
 
 const peuxBouger = ref(false);

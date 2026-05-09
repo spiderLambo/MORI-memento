@@ -1,4 +1,5 @@
 <script setup>
+defineOptions({ inheritAttrs: true });
 const props = defineProps({
   position: Array,
   sprite: String,

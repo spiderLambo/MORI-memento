@@ -5,6 +5,14 @@ const pnjPos = ref([0, 0]);
 const spriteLink = ref("");
 const activeLoops = [];
 
+const room0 = ref(false);
+const room1 = ref(false);
+const room2 = ref(false);
+const room3 = ref(false);
+const room4 = ref(false);
+
+const room0SpawnPos = ref([0, 5]);
+
 async function pnjMouvement(poss, pos, sprite, loop = false) {
   pos = pos || pnjPos;
   sprite = sprite || spriteLink;
@@ -14,7 +22,7 @@ async function pnjMouvement(poss, pos, sprite, loop = false) {
 
   activeLoops.push(() => {
     actif = false;
-    clearTimeout(timeoutId); // 👈 annule le timeout en cours
+    clearTimeout(timeoutId);
   });
 
   do {
@@ -43,6 +51,12 @@ provide("pnjMouvement", pnjMouvement);
 provide("stopAllPnj", stopAllPnj);
 provide("pnjPos", pnjPos);
 provide("spriteLink", spriteLink);
+provide("room0", room0);
+provide("room1", room1);
+provide("room2", room2);
+provide("room3", room3);
+provide("room4", room4);
+provide("room0SpawnPos", room0SpawnPos);
 </script>
 
 <template>

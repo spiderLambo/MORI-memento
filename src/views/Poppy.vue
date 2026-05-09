@@ -18,7 +18,12 @@ const peuxBouger = inject("peuxBouger");
 
 const top = ref(props.spawn[0]);
 const left = ref(props.spawn[1]);
-let sprite = ref(2);
+let sprite;
+if (props.spriteSens[0] == "h") {
+  sprite = ref(1);
+} else {
+  sprite = ref(2);
+}
 let direction = ref(props.spriteSens);
 
 function getImgUrl() {
@@ -45,60 +50,57 @@ function verifieValeurs(l, lig, col) {
 }
 
 function handleKeydown(e) {
-  if (peuxBouger.value) {
+  if (!peuxBouger.value) return;
+
+  const modeHaut = props.spriteSens[0] == "h";
+
+  if (modeHaut) {
+    if (e.key == "ArrowLeft") direction.value = "hautgauche";
+    else if (e.key == "ArrowRight") direction.value = "hautdroite";
+    else if (e.key == "ArrowDown") direction.value = "hautbas";
+    else if (e.key == "ArrowUp") direction.value = "hauthaut";
+  } else {
     sprite.value = (sprite.value % 3) + 1;
-
-    let bouge = true;
-
     if (e.key == "ArrowLeft") direction.value = "gauche";
     else if (e.key == "ArrowRight") direction.value = "droite";
-    if (bouge) {
-      if (e.key == "ArrowDown") {
-        if (
-          props.tp.bas.positions.some(
-            ([x, y]) => x === top.value && y === left.value,
-          )
-        ) {
-          router.push(props.tp.bas.link);
-        }
-        if (!verifieValeurs(props.interdis, top.value + 1, left.value))
-          top.value += 1;
-      } else if (e.key == "ArrowUp") {
-        if (
-          props.tp.haut.positions.some(
-            ([x, y]) => x === top.value && y === left.value,
-          )
-        ) {
-          router.push(props.tp.haut.link);
-        }
-        if (!verifieValeurs(props.interdis, top.value - 1, left.value))
-          top.value -= 1;
-      } else if (e.key == "ArrowLeft") {
-        if (
-          props.tp.gauche.positions.some(
-            ([x, y]) => x === top.value && y === left.value,
-          )
-        ) {
-          router.push(props.tp.gauche.link);
-        }
-        if (!verifieValeurs(props.interdis, top.value, left.value - 1)) {
-          left.value -= 1;
-        }
-      } else if (e.key == "ArrowRight") {
-        if (
-          props.tp.droite.positions.some(
-            ([x, y]) => x === top.value && y === left.value,
-          )
-        ) {
-          router.push(props.tp.droite.link);
-        }
-        if (!verifieValeurs(props.interdis, top.value, left.value + 1)) {
-          left.value += 1;
-          direction.value = "droite";
-        }
-      }
-      bouge = false;
-    }
+  }
+
+  if (e.key == "ArrowDown") {
+    if (
+      props.tp.bas.positions.some(
+        ([x, y]) => x === top.value && y === left.value,
+      )
+    )
+      router.push(props.tp.bas.link);
+    if (!verifieValeurs(props.interdis, top.value + 1, left.value))
+      top.value += 1;
+  } else if (e.key == "ArrowUp") {
+    if (
+      props.tp.haut.positions.some(
+        ([x, y]) => x === top.value && y === left.value,
+      )
+    )
+      router.push(props.tp.haut.link);
+    if (!verifieValeurs(props.interdis, top.value - 1, left.value))
+      top.value -= 1;
+  } else if (e.key == "ArrowLeft") {
+    if (
+      props.tp.gauche.positions.some(
+        ([x, y]) => x === top.value && y === left.value,
+      )
+    )
+      router.push(props.tp.gauche.link);
+    if (!verifieValeurs(props.interdis, top.value, left.value - 1))
+      left.value -= 1;
+  } else if (e.key == "ArrowRight") {
+    if (
+      props.tp.droite.positions.some(
+        ([x, y]) => x === top.value && y === left.value,
+      )
+    )
+      router.push(props.tp.droite.link);
+    if (!verifieValeurs(props.interdis, top.value, left.value + 1))
+      left.value += 1;
   }
 
   if (top.value < 0) top.value = 0;
@@ -130,6 +132,5 @@ img {
   position: absolute;
   height: 16.6vh;
   width: 8.3vw;
-  aspect-ratio: 794 / 805;
 }
 </style>
