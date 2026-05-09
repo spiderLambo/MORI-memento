@@ -1,10 +1,16 @@
 <script setup>
 import { inject, ref, provide } from "vue";
 import Poppy from "../Poppy.vue";
+import Pnj from "../Pnj.vue";
 
-const pnjMouvement = inject("pnjMouvement");
-const pnjPos = inject("pnjPos");
-const spriteLink = inject("spriteLink");
+const room1 = inject("room1");
+const room0SpawnPos = inject("room0SpawnPos");
+const room0SpawnDir = inject("room0SpawnDir");
+room0SpawnPos.value = [5, 5];
+room0SpawnDir.value = "hauthaut";
+
+const spritePnj = ref("secte/haut/hauthaut.svg");
+
 const peuxBouger = ref(false);
 provide("peuxBouger", peuxBouger);
 
@@ -21,8 +27,8 @@ peuxBouger.value = true;
   <section>
     <Poppy
       :spawn="[0, 5]"
-      :sprite-type="2"
-      :sprite-sens="'droite'"
+      :sprite-type="1"
+      :sprite-sens="'hautbas'"
       :tp="{
         gauche: {
           positions: [],
@@ -87,6 +93,7 @@ peuxBouger.value = true;
         [5, 9],
       ]"
     />
+    <Pnj :position="[5, 4]" :sprite="spritePnj" class="clickable" />
   </section>
 </template>
 
@@ -98,5 +105,9 @@ section {
   width: 100dvw;
   position: relative;
   display: flex;
+
+  :deep(img.clickable) {
+    cursor: pointer;
+  }
 }
 </style>

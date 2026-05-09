@@ -5,6 +5,7 @@ import Pnj from "../Pnj.vue";
 
 const room0 = inject("room0");
 const room0SpawnPos = inject("room0SpawnPos");
+const room0SpawnDir = inject("room0SpawnDir");
 
 const spritePnj = ref("secte/haut/hauthaut.svg");
 
@@ -102,57 +103,6 @@ const interdisList = ref([
   [3, 5],
 ]);
 
-// {
-//   gauche: {
-//     positions: [
-//       [1, 0],
-//       [2, 0],
-//       [3, 0],
-//       [4, 0],
-//     ],
-//     link: `/n`,
-//   },
-//   droite: {
-//     positions: [
-//       [1, 11],
-//       [2, 11],
-//       [3, 11],
-//       [4, 11],
-//     ],
-//     link: `/t`,
-//   },
-//   haut: {
-//     positions: [
-//       [0, 1],
-//       [0, 2],
-//       [0, 3],
-//       [0, 4],
-//       [0, 5],
-//       [0, 6],
-//       [0, 7],
-//       [0, 8],
-//       [0, 9],
-//       [0, 10],
-//     ],
-//     link: `/o1`,
-//   },
-//   bas: {
-//     positions: [
-//       [5, 1],
-//       [5, 2],
-//       [5, 3],
-//       [5, 4],
-//       [5, 5],
-//       [5, 6],
-//       [5, 7],
-//       [5, 8],
-//       [5, 9],
-//       [5, 10],
-//     ],
-//     link: `/e2`,
-//   },
-// });
-
 async function attendre(dure) {
   peuxBouger.value = false;
   setTimeout(() => {
@@ -170,15 +120,76 @@ let event3Positions = [[1, 5]];
 const afficheEv3 = ref(false);
 const cligoteurVisible = ref(false);
 
-peuxBouger.value = false;
-
-setTimeout(() => {
+if (room0.value) {
   event1Declanche.value = true;
-}, 750);
-setTimeout(() => {
   event2Declanche.value = true;
+  event3Declanche.value = true;
+  event4Declanche.value = true;
+  bg.value = `url('${new URL("../../assets/Jeu/cebouquetdefleurs=)/1bis/bg.png", import.meta.url).href}')`;
+  spritePnj.value = "secte/mort/fleur.png";
+  interdisList.value = [[3, 5]];
+  tpList.value = {
+    gauche: {
+      positions: [
+        [1, 0],
+        [2, 0],
+        [3, 0],
+        [4, 0],
+      ],
+      link: `/n`,
+    },
+    droite: {
+      positions: [
+        [1, 11],
+        [2, 11],
+        [3, 11],
+        [4, 11],
+      ],
+      link: `/t`,
+    },
+    haut: {
+      positions: [
+        [0, 1],
+        [0, 2],
+        [0, 3],
+        [0, 4],
+        [0, 5],
+        [0, 6],
+        [0, 7],
+        [0, 8],
+        [0, 9],
+        [0, 10],
+      ],
+      link: `/o1`,
+    },
+    bas: {
+      positions: [
+        [5, 1],
+        [5, 2],
+        [5, 3],
+        [5, 4],
+        [5, 5],
+        [5, 6],
+        [5, 7],
+        [5, 8],
+        [5, 9],
+        [5, 10],
+      ],
+      link: `/e2`,
+    },
+  };
   peuxBouger.value = true;
-}, 1500);
+} else {
+  peuxBouger.value = false;
+
+  setTimeout(() => {
+    event1Declanche.value = true;
+  }, 750);
+  setTimeout(() => {
+    event2Declanche.value = true;
+    peuxBouger.value = true;
+  }, 1500);
+}
 
 function event3() {
   attendre(1.2);
@@ -190,7 +201,6 @@ function event3() {
 }
 
 function event4() {
-  event4Declanche.value = true;
   cligoteurVisible.value = true;
   setTimeout(() => {
     bg.value = `url('${new URL("../../assets/Jeu/cebouquetdefleurs=)/1bis/bg.png", import.meta.url).href}')`;
@@ -198,6 +208,7 @@ function event4() {
   attendre(800);
   setTimeout(() => {
     cligoteurVisible.value = false;
+    event4Declanche.value = true;
   }, 800);
 
   spritePnj.value = "secte/mort/fleur.png";
@@ -263,24 +274,6 @@ function onPoppyMove({ top, left }) {
   ) {
     event3();
   }
-  // if (
-  //   event4Positions.some(([y, x]) => x == left && y == top) &&
-  //   !event4Declanche.value
-  // ) {
-  //   event4();
-  // }
-  // if (
-  //   event5Positions.some(([y, x]) => x == left && y == top) &&
-  //   !event5Declanche.value
-  // ) {
-  //   event5();
-  // }
-  // if (
-  //   event6Positions.some(([y, x]) => x == left && y == top) &&
-  //   !event6Declanche.value
-  // ) {
-  //   event6();
-  // }
 }
 </script>
 
@@ -290,7 +283,7 @@ function onPoppyMove({ top, left }) {
       @move="onPoppyMove"
       :spawn="room0SpawnPos"
       :sprite-type="1"
-      :sprite-sens="'hautbas'"
+      :sprite-sens="room0SpawnDir"
       :tp="tpList"
       :interdis="interdisList"
     />
@@ -298,7 +291,7 @@ function onPoppyMove({ top, left }) {
       :position="[5, 3]"
       :sprite="spritePnj"
       :class="{ clickable: event3Declanche && !event4Declanche }"
-      @click="event4"
+      @click="event3Declanche && event4()"
     />
 
     <Transition name="fade">
@@ -315,7 +308,7 @@ function onPoppyMove({ top, left }) {
     <Transition name="fade">
       <h1 v-if="event3Declanche && afficheEv3" class="ev-3">Tu vois nada</h1>
     </Transition>
-    <div v-if="event4Declanche && cligoteurVisible" class="clignoteur"></div>
+    <div v-if="!event4Declanche && cligoteurVisible" class="clignoteur"></div>
   </section>
 </template>
 

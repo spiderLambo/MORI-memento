@@ -12,6 +12,7 @@ const room3 = ref(false);
 const room4 = ref(false);
 
 const room0SpawnPos = ref([0, 5]);
+const room0SpawnDir = ref("hautbas");
 
 async function pnjMouvement(poss, pos, sprite, loop = false) {
   pos = pos || pnjPos;
@@ -57,6 +58,7 @@ provide("room2", room2);
 provide("room3", room3);
 provide("room4", room4);
 provide("room0SpawnPos", room0SpawnPos);
+provide("room0SpawnDir", room0SpawnDir);
 </script>
 
 <template>
