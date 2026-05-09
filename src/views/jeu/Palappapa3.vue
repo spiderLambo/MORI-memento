@@ -54,8 +54,6 @@ function event2() {
 }
 
 function onPoppyMove({ top, left }) {
-  console.log(top + " " + left);
-
   if (
     event1Positions.some(([y, x]) => x == left && y == top) &&
     !event1Declanche.value
