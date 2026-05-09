@@ -27,16 +27,7 @@ if (props.spriteSens[0] == "h") {
 let direction = ref(props.spriteSens);
 
 function getImgUrl() {
-  return new URL(
-    "../assets/poppy/" +
-      direction.value +
-      "/" +
-      props.spriteType +
-      "/poppy" +
-      sprite.value +
-      ".svg",
-    import.meta.url,
-  ).href;
+  return `/assets/poppy/${direction.value}/${props.spriteType}/poppy${sprite.value}.svg`;
 }
 
 function verifieValeurs(l, lig, col) {
