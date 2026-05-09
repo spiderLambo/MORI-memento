@@ -8,7 +8,7 @@ const room2 = inject("room2");
 const room0SpawnPos = inject("room0SpawnPos");
 const room0SpawnDir = inject("room0SpawnDir");
 room0SpawnPos.value = [2, 0];
-room0SpawnDir.value = "hauthaut";
+room0SpawnDir.value = "hautdroite";
 const bg = ref(
   `url('${new URL("../../assets/Jeu/lemanquidecoupedescocatrix/2/bg.png", import.meta.url).href}')`,
 );
@@ -43,7 +43,7 @@ function event1() {
   setTimeout(() => {
     bg.value = `url('${new URL("../../assets/Jeu/lemanquidecoupedescocatrix/2bis/bg.png", import.meta.url).href}')`;
     spritePnj.value = "secte/mort/pnj2.png";
-  }, 400);
+  }, 300);
   cligoteurVisible.value = true;
   setTimeout(() => {
     cligoteurVisible.value = false;
