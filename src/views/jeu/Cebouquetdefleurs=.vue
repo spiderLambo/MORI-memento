@@ -22,22 +22,10 @@ const peuxBouger = ref(false);
 provide("peuxBouger", peuxBouger);
 
 const tpList = ref({
-  gauche: {
-    positions: [],
-    link: ``,
-  },
-  droite: {
-    positions: [],
-    link: ``,
-  },
-  haut: {
-    positions: [],
-    link: ``,
-  },
-  bas: {
-    positions: [],
-    link: ``,
-  },
+  gauche: { positions: [], link: `` },
+  droite: { positions: [], link: `` },
+  haut: { positions: [], link: `` },
+  bas: { positions: [], link: `` },
 });
 
 const interdisList = ref([
@@ -71,7 +59,6 @@ const interdisList = ref([
   [3, 4],
   [4, 4],
   [5, 4],
-
   [0, 6],
   [1, 6],
   [2, 6],
@@ -108,9 +95,59 @@ const interdisList = ref([
   [3, 11],
   [4, 11],
   [5, 11],
-
   [3, 5],
 ]);
+
+const tpOuvert = {
+  gauche: {
+    positions: [
+      [1, 0],
+      [2, 0],
+      [3, 0],
+      [4, 0],
+    ],
+    link: `/n`,
+  },
+  droite: {
+    positions: [
+      [1, 11],
+      [2, 11],
+      [3, 11],
+      [4, 11],
+    ],
+    link: `/t`,
+  },
+  haut: {
+    positions: [
+      [0, 1],
+      [0, 2],
+      [0, 3],
+      [0, 4],
+      [0, 5],
+      [0, 6],
+      [0, 7],
+      [0, 8],
+      [0, 9],
+      [0, 10],
+    ],
+    link: `/o1`,
+  },
+  bas: {
+    positions: [
+      [5, 1],
+      [5, 2],
+      [5, 3],
+      [5, 4],
+      [5, 5],
+      [5, 6],
+      [5, 7],
+      [5, 8],
+      [5, 9],
+      [5, 10],
+    ],
+    link: `/e2`,
+  },
+};
 
 async function attendre(dure) {
   peuxBouger.value = false;
@@ -118,13 +155,12 @@ async function attendre(dure) {
     peuxBouger.value = true;
   }, dure);
 }
+
 const event1Declanche = ref(false);
 const event2Declanche = ref(false);
 const event3Declanche = ref(false);
 const event4Declanche = ref(false);
-const bg = ref(
-  `url('${new URL("../../assets/Jeu/cebouquetdefleurs=)/1/bg.png", import.meta.url).href}')`,
-);
+const bg = ref(`url('/assets/Jeu/cebouquetdefleurs=)/1/bg.png')`);
 let event3Positions = [[1, 5]];
 const afficheEv3 = ref(false);
 const cligoteurVisible = ref(false);
@@ -134,63 +170,13 @@ if (room0.value) {
   event2Declanche.value = true;
   event3Declanche.value = true;
   event4Declanche.value = true;
-  bg.value = `url('${new URL("../../assets/Jeu/cebouquetdefleurs=)/1bis/bg.png", import.meta.url).href}')`;
+  bg.value = `url('/assets/Jeu/cebouquetdefleurs=)/1bis/bg.png')`;
   spritePnj.value = "secte/mort/fleur.png";
   interdisList.value = [[3, 5]];
-  tpList.value = {
-    gauche: {
-      positions: [
-        [1, 0],
-        [2, 0],
-        [3, 0],
-        [4, 0],
-      ],
-      link: `/n`,
-    },
-    droite: {
-      positions: [
-        [1, 11],
-        [2, 11],
-        [3, 11],
-        [4, 11],
-      ],
-      link: `/t`,
-    },
-    haut: {
-      positions: [
-        [0, 1],
-        [0, 2],
-        [0, 3],
-        [0, 4],
-        [0, 5],
-        [0, 6],
-        [0, 7],
-        [0, 8],
-        [0, 9],
-        [0, 10],
-      ],
-      link: `/o1`,
-    },
-    bas: {
-      positions: [
-        [5, 1],
-        [5, 2],
-        [5, 3],
-        [5, 4],
-        [5, 5],
-        [5, 6],
-        [5, 7],
-        [5, 8],
-        [5, 9],
-        [5, 10],
-      ],
-      link: `/e2`,
-    },
-  };
+  tpList.value = tpOuvert;
   peuxBouger.value = true;
 } else {
   peuxBouger.value = false;
-
   setTimeout(() => {
     event1Declanche.value = true;
   }, 750);
@@ -212,67 +198,16 @@ function event3() {
 function event4() {
   cligoteurVisible.value = true;
   setTimeout(() => {
-    bg.value = `url('${new URL("../../assets/Jeu/cebouquetdefleurs=)/1bis/bg.png", import.meta.url).href}')`;
+    bg.value = `url('/assets/Jeu/cebouquetdefleurs=)/1bis/bg.png')`;
   }, 500);
   attendre(800);
   setTimeout(() => {
     cligoteurVisible.value = false;
     event4Declanche.value = true;
   }, 800);
-
   spritePnj.value = "secte/mort/fleur.png";
   interdisList.value = [[3, 5]];
-  tpList.value = {
-    gauche: {
-      positions: [
-        [1, 0],
-        [2, 0],
-        [3, 0],
-        [4, 0],
-      ],
-      link: `/n`,
-    },
-    droite: {
-      positions: [
-        [1, 11],
-        [2, 11],
-        [3, 11],
-        [4, 11],
-      ],
-      link: `/t`,
-    },
-    haut: {
-      positions: [
-        [0, 1],
-        [0, 2],
-        [0, 3],
-        [0, 4],
-        [0, 5],
-        [0, 6],
-        [0, 7],
-        [0, 8],
-        [0, 9],
-        [0, 10],
-      ],
-      link: `/o1`,
-    },
-    bas: {
-      positions: [
-        [5, 1],
-        [5, 2],
-        [5, 3],
-        [5, 4],
-        [5, 5],
-        [5, 6],
-        [5, 7],
-        [5, 8],
-        [5, 9],
-        [5, 10],
-      ],
-      link: `/e2`,
-    },
-  };
-
+  tpList.value = tpOuvert;
   room0.value = true;
 }
 
@@ -302,7 +237,6 @@ function onPoppyMove({ top, left }) {
       :class="{ clickable: event3Declanche && !event4Declanche }"
       @click="event3Declanche && event4()"
     />
-
     <Transition name="fade">
       <h1 v-if="event1Declanche && !event3Declanche" class="ev-1">
         Avec elle j'ai confiance
@@ -310,8 +244,7 @@ function onPoppyMove({ top, left }) {
     </Transition>
     <Transition name="fade">
       <h1 v-if="event2Declanche && !event3Declanche" class="ev-2">
-        Ils avaient tous des rêves, <br />
-        c'qui n'm'intéressait guère
+        Ils avaient tous des rêves, <br />c'qui n'm'intéressait guère
       </h1>
     </Transition>
     <Transition name="fade">

@@ -12,9 +12,25 @@ const room0SpawnPos = inject("room0SpawnPos");
 const room0SpawnDir = inject("room0SpawnDir");
 room0SpawnPos.value = [0, 5];
 room0SpawnDir.value = "hautbas";
-const bg = ref(
-  `url('${new URL("../../assets/Jeu/jillvalentine/2/bg.png", import.meta.url).href}')`,
-);
+room0.value = true;
+
+const bg = ref(`url('/assets/Jeu/jillvalentine/2/bg.png')`);
+
+const sortieMemento = {
+  gauche: { positions: [], link: `` },
+  droite: {
+    positions: [
+      [1, 11],
+      [2, 11],
+      [3, 11],
+      [4, 11],
+      [5, 11],
+    ],
+    link: `/memento`,
+  },
+  haut: { positions: [], link: `` },
+  bas: { positions: [], link: `` },
+};
 
 const sortie = ref({
   gauche: { positions: [], link: `` },
@@ -35,10 +51,7 @@ const sortie = ref({
   },
 });
 
-room0.value = true;
-
 const spritePnj = ref("secte/haut/hautbas.svg");
-
 const peuxBouger = ref(false);
 provide("peuxBouger", peuxBouger);
 
@@ -48,29 +61,16 @@ async function attendre(dure) {
     peuxBouger.value = true;
   }, dure);
 }
+
 const event1Declanche = ref(false);
 const cligoteurVisible = ref(false);
 
 if (room4.value) {
   event1Declanche.value = true;
-  bg.value = `url('${new URL("../../assets/Jeu/jillvalentine/2bis/bg.png", import.meta.url).href}')`;
+  bg.value = `url('/assets/Jeu/jillvalentine/2bis/bg.png')`;
   spritePnj.value = "secte/mort/pnj4.png";
   if (room0.value && room1.value && room2.value && room3.value && room4.value) {
-    sortie.value = {
-      gauche: { positions: [], link: `` },
-      droite: {
-        positions: [
-          [1, 11],
-          [2, 11],
-          [3, 11],
-          [4, 11],
-          [5, 11],
-        ],
-        link: `/memento`,
-      },
-      haut: { positions: [], link: `` },
-      bas: { positions: [], link: `` },
-    };
+    sortie.value = sortieMemento;
   }
 }
 
@@ -80,7 +80,7 @@ function event1() {
   event1Declanche.value = true;
   attendre(0.8);
   setTimeout(() => {
-    bg.value = `url('${new URL("../../assets/Jeu/jillvalentine/2bis/bg.png", import.meta.url).href}')`;
+    bg.value = `url('/assets/Jeu/jillvalentine/2bis/bg.png')`;
     spritePnj.value = "secte/mort/pnj4.png";
   }, 100);
   cligoteurVisible.value = true;
@@ -89,21 +89,7 @@ function event1() {
   }, 800);
   room4.value = true;
   if (room0.value && room1.value && room2.value && room3.value && room4.value) {
-    sortie.value = {
-      gauche: { positions: [], link: `` },
-      droite: {
-        positions: [
-          [1, 11],
-          [2, 11],
-          [3, 11],
-          [4, 11],
-          [5, 11],
-        ],
-        link: `/memento`,
-      },
-      haut: { positions: [], link: `` },
-      bas: { positions: [], link: `` },
-    };
+    sortie.value = sortieMemento;
   }
 }
 </script>
@@ -138,10 +124,8 @@ function event1() {
         [3, 1],
         [4, 1],
         [5, 1],
-
         [5, 10],
         [5, 11],
-
         [1, 2],
       ]"
     />

@@ -5,7 +5,6 @@ const props = defineProps({
   sprite: String,
 });
 
-// ✅
 function getImgUrl() {
   return `/assets/pnj/${props.sprite}`;
 }

@@ -37,7 +37,6 @@ async function attendre(dure) {
     peuxBouger.value = true;
   }, dure);
 }
-
 attendre(5600);
 </script>
 
@@ -48,10 +47,7 @@ attendre(5600);
       :sprite-type="3"
       :sprite-sens="'droite'"
       :tp="{
-        gauche: {
-          positions: [],
-          link: ``,
-        },
+        gauche: { positions: [], link: `` },
         droite: {
           positions: [
             [0, 11],
@@ -75,10 +71,7 @@ attendre(5600);
           ],
           link: `/RI`,
         },
-        bas: {
-          positions: [],
-          link: ``,
-        },
+        bas: { positions: [], link: `` },
       }"
       :interdis="[
         [0, 0],
@@ -100,7 +93,7 @@ attendre(5600);
 
 <style lang="scss" scoped>
 section {
-  background: no-repeat url("../../assets/Jeu/lunechatetherisson/bg.png")
+  background: no-repeat url("/assets/Jeu/lunechatetherisson/bg.png")
     center/cover;
   height: 100dvh;
   width: 100dvw;

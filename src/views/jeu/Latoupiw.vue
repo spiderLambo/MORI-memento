@@ -4,8 +4,8 @@ import Poppy from "../Poppy.vue";
 import Pnj from "../Pnj.vue";
 
 const pnjMouvement = inject("pnjMouvement");
-const pnjPos1 = inject("pnjPos");
-const spriteLink1 = inject("spriteLink");
+const pnjPos1 = ref([0, 0]);
+const spriteLink1 = ref("");
 const pnjPos2 = ref([0, 0]);
 const spriteLink2 = ref("");
 const pnjPos3 = ref([0, 0]);
@@ -29,7 +29,6 @@ pnjMouvement(
   spriteLink1,
   true,
 );
-
 pnjMouvement(
   [
     [8, 2, 0, "secte/ronde/pos22.png"],
@@ -44,7 +43,6 @@ pnjMouvement(
   spriteLink2,
   true,
 );
-
 pnjMouvement(
   [
     [8, 3, 0, "secte/ronde/pos31.png"],
@@ -59,7 +57,6 @@ pnjMouvement(
   spriteLink3,
   true,
 );
-
 pnjMouvement(
   [
     [7, 3, 0, "secte/ronde/pos42.png"],
@@ -80,7 +77,7 @@ peuxBouger.value = true;
 
 <template>
   <section>
-    <img src="../../assets/Jeu/latoupiw/fg.png" id="fg" />
+    <img src="/assets/Jeu/latoupiw/fg.png" id="fg" />
     <Pnj :position="pnjPos1" :sprite="spriteLink1" />
     <Pnj :position="pnjPos2" :sprite="spriteLink2" />
     <Pnj :position="pnjPos3" :sprite="spriteLink3" />
@@ -90,10 +87,7 @@ peuxBouger.value = true;
       :sprite-type="2"
       :sprite-sens="'droite'"
       :tp="{
-        gauche: {
-          positions: [],
-          link: ``,
-        },
+        gauche: { positions: [], link: `` },
         droite: {
           positions: [
             [2, 11],
@@ -103,14 +97,8 @@ peuxBouger.value = true;
           ],
           link: `/m1`,
         },
-        haut: {
-          positions: [],
-          link: ``,
-        },
-        bas: {
-          positions: [],
-          link: ``,
-        },
+        haut: { positions: [], link: `` },
+        bas: { positions: [], link: `` },
       }"
       :interdis="[
         [0, 0],
@@ -138,7 +126,7 @@ peuxBouger.value = true;
 
 <style lang="scss" scoped>
 section {
-  background: no-repeat url("../../assets/Jeu/latoupiw/bg.png") center/cover;
+  background: no-repeat url("/assets/Jeu/latoupiw/bg.png") center/cover;
   height: 100dvh;
   width: 100dvw;
   position: relative;

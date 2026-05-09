@@ -4,19 +4,24 @@ import Poppy from "../Poppy.vue";
 import Pnj from "../Pnj.vue";
 
 const pnjMouvement = inject("pnjMouvement");
-const pnjPos = inject("pnjPos");
-const spriteLink = inject("spriteLink");
+const pnjPos = ref([0, 0]);
+const spriteLink = ref("");
 const peuxBouger = ref(false);
 provide("peuxBouger", peuxBouger);
-pnjMouvement([
-  [1, 3, 0, "secte/courDroiteFleur/pnj1.svg"],
-  [2, 3, 400, "secte/courDroiteFleur/pnj2.svg"],
-  [3, 3, 400, "secte/courDroiteFleur/pnj3.svg"],
-  [4, 3, 1150, "secte/courDroiteFleur/pnj2.svg"],
-  [4, 2, 400, "secte/courDroiteFleur/pnj1.svg"],
-  [5, 2, 1150, "secte/courDroiteFleur/pnj2.svg"],
-  [6, 2, 400, "secte/standFrontFleur/pnj1.svg"],
-]);
+
+pnjMouvement(
+  [
+    [1, 3, 0, "secte/courDroiteFleur/pnj1.svg"],
+    [2, 3, 400, "secte/courDroiteFleur/pnj2.svg"],
+    [3, 3, 400, "secte/courDroiteFleur/pnj3.svg"],
+    [4, 3, 1150, "secte/courDroiteFleur/pnj2.svg"],
+    [4, 2, 400, "secte/courDroiteFleur/pnj1.svg"],
+    [5, 2, 1150, "secte/courDroiteFleur/pnj2.svg"],
+    [6, 2, 400, "secte/standFrontFleur/pnj1.svg"],
+  ],
+  pnjPos,
+  spriteLink,
+);
 
 async function attendre(dure) {
   peuxBouger.value = false;
@@ -48,7 +53,6 @@ let event2Positions = [
 function event1() {
   event1Declanche.value = true;
 }
-
 function event2() {
   event2Declanche.value = true;
 }
@@ -57,15 +61,13 @@ function onPoppyMove({ top, left }) {
   if (
     event1Positions.some(([y, x]) => x == left && y == top) &&
     !event1Declanche.value
-  ) {
+  )
     event1();
-  }
   if (
     event2Positions.some(([y, x]) => x == left && y == top) &&
     !event2Declanche.value
-  ) {
+  )
     event2();
-  }
 }
 
 attendre(3900);
@@ -73,7 +75,7 @@ attendre(3900);
 
 <template>
   <section>
-    <img src="../../assets/Jeu/palappapa/3/fg.png" id="fg" />
+    <img src="/assets/Jeu/palappapa/3/fg.png" id="fg" />
     <Transition name="fade">
       <h1 v-if="event2Declanche">Moi j'tourne autour de toi</h1>
       <h1 v-else-if="event1Declanche">Nan, j'veux qu'on s'oublie pas</h1>
@@ -85,14 +87,8 @@ attendre(3900);
       :sprite-type="2"
       :sprite-sens="'droite'"
       :tp="{
-        gauche: {
-          positions: [],
-          link: ``,
-        },
-        droite: {
-          positions: [],
-          link: ``,
-        },
+        gauche: { positions: [], link: `` },
+        droite: { positions: [], link: `` },
         haut: {
           positions: [
             [0, 4],
@@ -102,10 +98,7 @@ attendre(3900);
           ],
           link: `/I`,
         },
-        bas: {
-          positions: [],
-          link: ``,
-        },
+        bas: { positions: [], link: `` },
       }"
       :interdis="[
         [0, 0],
@@ -116,7 +109,6 @@ attendre(3900);
         [1, 2],
         [0, 3],
         [0, 9],
-
         [5, 9],
         [5, 8],
         [0, 10],
@@ -127,8 +119,6 @@ attendre(3900);
         [3, 11],
         [4, 11],
         [5, 11],
-
-        // PNJ
         [2, 6],
       ]"
     />
@@ -137,7 +127,7 @@ attendre(3900);
 
 <style lang="scss" scoped>
 section {
-  background: no-repeat url("../../assets/Jeu/palappapa/3/bg.png") center/cover;
+  background: no-repeat url("/assets/Jeu/palappapa/3/bg.png") center/cover;
   height: 100dvh;
   width: 100dvw;
   position: relative;

@@ -5,7 +5,6 @@ import Pnj from "../Pnj.vue";
 
 const stopAllPnj = inject("stopAllPnj");
 onUnmounted(() => stopAllPnj());
-
 const pnjMouvement = inject("pnjMouvement");
 const pnjPos1 = ref([0, 0]);
 const spriteLink1 = ref("");
@@ -32,7 +31,6 @@ pnjMouvement(
   spriteLink1,
   true,
 );
-
 pnjMouvement(
   [
     [8, 2, 0, "secte/ronde/pos22.png"],
@@ -47,7 +45,6 @@ pnjMouvement(
   spriteLink2,
   true,
 );
-
 pnjMouvement(
   [
     [8, 3, 0, "secte/ronde/pos31.png"],
@@ -62,7 +59,6 @@ pnjMouvement(
   spriteLink3,
   true,
 );
-
 pnjMouvement(
   [
     [7, 3, 0, "secte/ronde/pos42.png"],
@@ -83,7 +79,7 @@ peuxBouger.value = true;
 
 <template>
   <section>
-    <img src="../../assets/Jeu/chromatique/2/fg.png" id="fg" />
+    <img src="/assets/Jeu/chromatique/2/fg.png" id="fg" />
     <Pnj :position="pnjPos1" :sprite="spriteLink1" />
     <Pnj :position="pnjPos2" :sprite="spriteLink2" />
     <Pnj :position="pnjPos3" :sprite="spriteLink3" />
@@ -93,18 +89,9 @@ peuxBouger.value = true;
       :sprite-type="2"
       :sprite-sens="'gauche'"
       :tp="{
-        gauche: {
-          positions: [],
-          link: ``,
-        },
-        droite: {
-          positions: [],
-          link: ``,
-        },
-        haut: {
-          positions: [],
-          link: ``,
-        },
+        gauche: { positions: [], link: `` },
+        droite: { positions: [], link: `` },
+        haut: { positions: [], link: `` },
         bas: {
           positions: [
             [5, 4],
@@ -145,8 +132,7 @@ peuxBouger.value = true;
 
 <style lang="scss" scoped>
 section {
-  background: no-repeat url("../../assets/Jeu/chromatique/2/bg.png")
-    center/cover;
+  background: no-repeat url("/assets/Jeu/chromatique/2/bg.png") center/cover;
   height: 100dvh;
   width: 100dvw;
   position: relative;

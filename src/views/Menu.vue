@@ -11,7 +11,7 @@
 
 <style lang="scss" scoped>
 header {
-  background: no-repeat url("../assets/Menu/bgMenu.png") center/cover;
+  background: no-repeat url("/assets/Menu/bgMenu.png") center/cover;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,6 +30,7 @@ header {
     font-size: 20vh;
     padding: 0;
     margin: 0;
+
     a {
       display: inline-block;
       text-decoration: none;

@@ -9,12 +9,8 @@ provide("peuxBouger", peuxBouger);
 const pnjMouvement = inject("pnjMouvement");
 const position = ref([0, 0]);
 const sprite = ref("");
-provide("peuxBouger", peuxBouger);
 const texte = ref(0);
 const peuxPop = ref(false);
-
-const chatPos = ref([0, 0]);
-const chatSprite = ref("");
 
 async function attendre(dure) {
   peuxBouger.value = false;
@@ -41,10 +37,6 @@ pnjMouvement(
   position,
   sprite,
 );
-
-// pnjMouvement([
-//   [12,3,0,"chat/droite"]
-// ])
 
 setTimeout(() => {
   texte.value = 1;
@@ -79,14 +71,12 @@ setTimeout(() => {
 setTimeout(() => {
   texte.value = 0;
 }, 14000);
-
 setTimeout(() => {
   texte.value = 11;
 }, 16400);
 setTimeout(() => {
   texte.value = 12;
 }, 17400);
-
 setTimeout(() => {
   peuxPop.value = true;
 }, 14600);
@@ -95,7 +85,7 @@ attendre(19200);
 
 <template>
   <section>
-    <img src="../../assets/Jeu/bouquetdefleurs=/fg.png" id="fg" />
+    <img src="/assets/Jeu/bouquetdefleurs=/fg.png" id="fg" />
     <Pnj :position="position" :sprite="sprite" />
     <Transition name="fade">
       <h1 v-if="texte == 1" id="Texte1">J'suis perdu dans la fo-forêt</h1>
@@ -123,10 +113,7 @@ attendre(19200);
       :sprite-type="3"
       :sprite-sens="'droite'"
       :tp="{
-        gauche: {
-          positions: [],
-          link: ``,
-        },
+        gauche: { positions: [], link: `` },
         droite: {
           positions: [
             [2, 11],
@@ -136,14 +123,8 @@ attendre(19200);
           ],
           link: `/MO`,
         },
-        haut: {
-          positions: [],
-          link: ``,
-        },
-        bas: {
-          positions: [],
-          link: ``,
-        },
+        haut: { positions: [], link: `` },
+        bas: { positions: [], link: `` },
       }"
       :interdis="[
         [0, 0],
@@ -167,8 +148,7 @@ attendre(19200);
 
 <style lang="scss" scoped>
 section {
-  background: no-repeat url("../../assets/Jeu/bouquetdefleurs=/bg.png")
-    center/cover;
+  background: no-repeat url("/assets/Jeu/bouquetdefleurs=/bg.png") center/cover;
   height: 100dvh;
   width: 100dvw;
   position: relative;
@@ -200,11 +180,9 @@ section {
     &#Texte1 {
       animation: text1 1.5s ease-out 1;
     }
-
     &#Texte2 {
       animation: text2 1.5s ease-out 1;
     }
-
     &#Texte3 {
       position: fixed;
       opacity: 1;
@@ -234,7 +212,6 @@ section {
       top: 50%;
       transform: translateX(-50%) translateY(-50%);
     }
-
     &#Texte6 {
       opacity: 1;
       top: 10px;

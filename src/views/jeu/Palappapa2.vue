@@ -4,21 +4,27 @@ import Poppy from "../Poppy.vue";
 import Pnj from "../Pnj.vue";
 
 const pnjMouvement = inject("pnjMouvement");
-const pnjPos = inject("pnjPos");
-const spriteLink = inject("spriteLink");
+const pnjPos = ref([0, 0]);
+const spriteLink = ref("");
 const peuxBouger = ref(false);
 provide("peuxBouger", peuxBouger);
-pnjMouvement([
-  [1, 3, 0, "secte/courDroite/pnj1.svg"],
-  [2, 3, 400, "secte/courDroite/pnj2.svg"],
-  [3, 3, 400, "secte/courDroite/pnj3.svg"],
-  [4, 3, 1150, "secte/courDroite/pnj2.svg"],
-  [5, 3, 400, "secte/courDroite/pnj1.svg"],
-  [6, 3, 1150, "secte/courDroite/pnj2.svg"],
-  [7, 3, 400, "secte/courDroite/pnj3.svg"],
-  [7, 2, 1150, "secte/courGauche/pnj2.svg"],
-  [7, 2, 400, "secte/standGauche/pnj1.svg"],
-]);
+
+pnjMouvement(
+  [
+    [1, 3, 0, "secte/courDroite/pnj1.svg"],
+    [2, 3, 400, "secte/courDroite/pnj2.svg"],
+    [3, 3, 400, "secte/courDroite/pnj3.svg"],
+    [4, 3, 1150, "secte/courDroite/pnj2.svg"],
+    [5, 3, 400, "secte/courDroite/pnj1.svg"],
+    [6, 3, 1150, "secte/courDroite/pnj2.svg"],
+    [7, 3, 400, "secte/courDroite/pnj3.svg"],
+    [7, 2, 1150, "secte/courGauche/pnj2.svg"],
+    [7, 2, 400, "secte/standGauche/pnj1.svg"],
+  ],
+  pnjPos,
+  spriteLink,
+);
+
 async function attendre(dure) {
   peuxBouger.value = false;
   setTimeout(() => {
@@ -40,16 +46,19 @@ let event1Positions = [
 function event1() {
   event1Declanche.value = true;
   spriteType.value = 2;
-
   attendre(3500);
-  pnjMouvement([
-    [8, 2, 0, "secte/courDroiteFleur/pnj1.svg"],
-    [9, 2, 400, "secte/courDroiteFleur/pnj2.svg"],
-    [9, 3, 1150, "secte/courDroiteFleur/pnj3.svg"],
-    [10, 3, 400, "secte/courDroiteFleur/pnj2.svg"],
-    [11, 3, 1150, "secte/courDroiteFleur/pnj1.svg"],
-    [-1, -1, 400, ""],
-  ]);
+  pnjMouvement(
+    [
+      [8, 2, 0, "secte/courDroiteFleur/pnj1.svg"],
+      [9, 2, 400, "secte/courDroiteFleur/pnj2.svg"],
+      [9, 3, 1150, "secte/courDroiteFleur/pnj3.svg"],
+      [10, 3, 400, "secte/courDroiteFleur/pnj2.svg"],
+      [11, 3, 1150, "secte/courDroiteFleur/pnj1.svg"],
+      [-1, -1, 400, ""],
+    ],
+    pnjPos,
+    spriteLink,
+  );
 }
 
 function onPoppyMove({ top, left }) {
@@ -66,8 +75,8 @@ attendre(5450);
 
 <template>
   <section>
-    <img src="../../assets/Jeu/palappapa/2/fg.png" id="fg" />
-    <img src="../../assets/Jeu/palappapa/2/fleur.svg" id="fleur" />
+    <img src="/assets/Jeu/palappapa/2/fg.png" id="fg" />
+    <img src="/assets/Jeu/palappapa/2/fleur.svg" id="fleur" />
     <Transition name="fade">
       <h1 v-if="event1Declanche">Des fleurs ont poussé dans ma cervelle</h1>
     </Transition>
@@ -78,10 +87,7 @@ attendre(5450);
       :sprite-type="spriteType"
       :sprite-sens="'droite'"
       :tp="{
-        gauche: {
-          positions: [],
-          link: ``,
-        },
+        gauche: { positions: [], link: `` },
         droite: {
           positions: [
             [2, 11],
@@ -91,14 +97,8 @@ attendre(5450);
           ],
           link: `/R`,
         },
-        haut: {
-          positions: [],
-          link: ``,
-        },
-        bas: {
-          positions: [],
-          link: ``,
-        },
+        haut: { positions: [], link: `` },
+        bas: { positions: [], link: `` },
       }"
       :interdis="[
         [0, 0],
@@ -120,7 +120,7 @@ attendre(5450);
 
 <style lang="scss" scoped>
 section {
-  background: no-repeat url("../../assets/Jeu/palappapa/2/bg.png") center/cover;
+  background: no-repeat url("/assets/Jeu/palappapa/2/bg.png") center/cover;
   height: 100dvh;
   width: 100dvw;
   display: flex;

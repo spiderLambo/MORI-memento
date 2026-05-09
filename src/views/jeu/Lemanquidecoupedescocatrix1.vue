@@ -9,14 +9,10 @@ const room0SpawnPos = inject("room0SpawnPos");
 const room0SpawnDir = inject("room0SpawnDir");
 room0SpawnPos.value = [5, 5];
 room0SpawnDir.value = "hauthaut";
-const bg = ref(
-  `url('${new URL("../../assets/Jeu/lemanquidecoupedescocatrix/1/bg.png", import.meta.url).href}')`,
-);
-
 room0.value = true;
 
+const bg = ref(`url('/assets/Jeu/lemanquidecoupedescocatrix/1/bg.png')`);
 const spritePnj = ref("secte/haut/hauthaut.svg");
-
 const peuxBouger = ref(false);
 provide("peuxBouger", peuxBouger);
 
@@ -26,12 +22,13 @@ async function attendre(dure) {
     peuxBouger.value = true;
   }, dure);
 }
+
 const event1Declanche = ref(false);
 const cligoteurVisible = ref(false);
 
 if (room1.value) {
   event1Declanche.value = true;
-  bg.value = `url('${new URL("../../assets/Jeu/lemanquidecoupedescocatrix/1bis/bg.png", import.meta.url).href}')`;
+  bg.value = `url('/assets/Jeu/lemanquidecoupedescocatrix/1bis/bg.png')`;
   spritePnj.value = "secte/mort/pnj1.png";
 }
 
@@ -41,7 +38,7 @@ function event1() {
   event1Declanche.value = true;
   attendre(0.8);
   setTimeout(() => {
-    bg.value = `url('${new URL("../../assets/Jeu/lemanquidecoupedescocatrix/1bis/bg.png", import.meta.url).href}')`;
+    bg.value = `url('/assets/Jeu/lemanquidecoupedescocatrix/1bis/bg.png')`;
     spritePnj.value = "secte/mort/pnj1.png";
   }, 400);
   cligoteurVisible.value = true;
@@ -59,14 +56,8 @@ function event1() {
       :sprite-type="1"
       :sprite-sens="'hautbas'"
       :tp="{
-        gauche: {
-          positions: [],
-          link: ``,
-        },
-        droite: {
-          positions: [],
-          link: ``,
-        },
+        gauche: { positions: [], link: `` },
+        droite: { positions: [], link: `` },
         haut: {
           positions: [
             [0, 2],
@@ -80,10 +71,7 @@ function event1() {
           ],
           link: `/m2`,
         },
-        bas: {
-          positions: [],
-          link: ``,
-        },
+        bas: { positions: [], link: `` },
       }"
       :interdis="[
         [0, 0],
@@ -98,7 +86,6 @@ function event1() {
         [3, 1],
         [4, 1],
         [5, 1],
-
         [0, 10],
         [1, 10],
         [2, 10],
@@ -111,7 +98,6 @@ function event1() {
         [3, 11],
         [4, 11],
         [5, 11],
-
         [5, 2],
         [5, 3],
         [5, 4],
@@ -120,7 +106,6 @@ function event1() {
         [5, 7],
         [5, 8],
         [5, 9],
-
         [4, 5],
       ]"
     />

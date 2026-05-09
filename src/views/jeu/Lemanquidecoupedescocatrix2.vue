@@ -9,14 +9,10 @@ const room0SpawnPos = inject("room0SpawnPos");
 const room0SpawnDir = inject("room0SpawnDir");
 room0SpawnPos.value = [2, 0];
 room0SpawnDir.value = "hautdroite";
-const bg = ref(
-  `url('${new URL("../../assets/Jeu/lemanquidecoupedescocatrix/2/bg.png", import.meta.url).href}')`,
-);
-
 room0.value = true;
 
+const bg = ref(`url('/assets/Jeu/lemanquidecoupedescocatrix/2/bg.png')`);
 const spritePnj = ref("secte/haut/hautdroite.svg");
-
 const peuxBouger = ref(false);
 provide("peuxBouger", peuxBouger);
 
@@ -26,12 +22,13 @@ async function attendre(dure) {
     peuxBouger.value = true;
   }, dure);
 }
+
 const event1Declanche = ref(false);
 const cligoteurVisible = ref(false);
 
 if (room2.value) {
   event1Declanche.value = true;
-  bg.value = `url('${new URL("../../assets/Jeu/lemanquidecoupedescocatrix/2bis/bg.png", import.meta.url).href}')`;
+  bg.value = `url('/assets/Jeu/lemanquidecoupedescocatrix/2bis/bg.png')`;
   spritePnj.value = "secte/mort/pnj2.png";
 }
 
@@ -41,7 +38,7 @@ function event1() {
   event1Declanche.value = true;
   attendre(0.8);
   setTimeout(() => {
-    bg.value = `url('${new URL("../../assets/Jeu/lemanquidecoupedescocatrix/2bis/bg.png", import.meta.url).href}')`;
+    bg.value = `url('/assets/Jeu/lemanquidecoupedescocatrix/2bis/bg.png')`;
     spritePnj.value = "secte/mort/pnj2.png";
   }, 300);
   cligoteurVisible.value = true;
@@ -59,10 +56,7 @@ function event1() {
       :sprite-type="1"
       :sprite-sens="'hautgauche'"
       :tp="{
-        gauche: {
-          positions: [],
-          link: ``,
-        },
+        gauche: { positions: [], link: `` },
         droite: {
           positions: [
             [1, 11],
@@ -72,14 +66,8 @@ function event1() {
           ],
           link: `/M2`,
         },
-        haut: {
-          positions: [],
-          link: ``,
-        },
-        bas: {
-          positions: [],
-          link: ``,
-        },
+        haut: { positions: [], link: `` },
+        bas: { positions: [], link: `` },
       }"
       :interdis="[
         [0, 0],
@@ -99,7 +87,6 @@ function event1() {
         [3, 0],
         [4, 0],
         [5, 0],
-        [0, 1],
         [1, 1],
         [2, 1],
         [3, 1],
@@ -115,7 +102,6 @@ function event1() {
         [5, 9],
         [5, 10],
         [5, 11],
-
         [3, 2],
       ]"
     />
@@ -127,7 +113,7 @@ function event1() {
     />
     <Transition name="fade">
       <h1 v-if="event1Declanche" class="ev-1">
-        J’étais un bel enfant naguère, mais bon la vie m’a bien frappé
+        J'étais un bel enfant naguère, mais bon la vie m'a bien frappé
       </h1>
     </Transition>
     <div v-if="event1Declanche && cligoteurVisible" class="clignoteur"></div>

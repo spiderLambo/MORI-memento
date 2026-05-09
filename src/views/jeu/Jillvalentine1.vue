@@ -9,14 +9,10 @@ const room0SpawnPos = inject("room0SpawnPos");
 const room0SpawnDir = inject("room0SpawnDir");
 room0SpawnPos.value = [2, 11];
 room0SpawnDir.value = "hautgauche";
-const bg = ref(
-  `url('${new URL("../../assets/Jeu/jillvalentine/1/bg.png", import.meta.url).href}')`,
-);
-
 room0.value = true;
 
+const bg = ref(`url('/assets/Jeu/jillvalentine/1/bg.png')`);
 const spritePnj = ref("secte/haut/hautgauche.svg");
-
 const peuxBouger = ref(false);
 provide("peuxBouger", peuxBouger);
 
@@ -26,12 +22,13 @@ async function attendre(dure) {
     peuxBouger.value = true;
   }, dure);
 }
+
 const event1Declanche = ref(false);
 const cligoteurVisible = ref(false);
 
 if (room3.value) {
   event1Declanche.value = true;
-  bg.value = `url('${new URL("../../assets/Jeu/jillvalentine/1bis/bg.png", import.meta.url).href}')`;
+  bg.value = `url('/assets/Jeu/jillvalentine/1bis/bg.png')`;
   spritePnj.value = "secte/mort/pnj3.png";
 }
 
@@ -41,7 +38,7 @@ function event1() {
   event1Declanche.value = true;
   attendre(0.8);
   setTimeout(() => {
-    bg.value = `url('${new URL("../../assets/Jeu/jillvalentine/1bis/bg.png", import.meta.url).href}')`;
+    bg.value = `url('/assets/Jeu/jillvalentine/1bis/bg.png')`;
     spritePnj.value = "secte/mort/pnj3.png";
   }, 200);
   cligoteurVisible.value = true;
@@ -68,18 +65,9 @@ function event1() {
           ],
           link: `/m2`,
         },
-        droite: {
-          positions: [],
-          link: ``,
-        },
-        haut: {
-          positions: [],
-          link: ``,
-        },
-        bas: {
-          positions: [],
-          link: ``,
-        },
+        droite: { positions: [], link: `` },
+        haut: { positions: [], link: `` },
+        bas: { positions: [], link: `` },
       }"
       :interdis="[
         [0, 0],
@@ -94,7 +82,6 @@ function event1() {
         [0, 9],
         [0, 10],
         [0, 11],
-
         [1, 11],
         [2, 11],
         [3, 11],
@@ -103,9 +90,7 @@ function event1() {
         [2, 10],
         [3, 10],
         [4, 10],
-
         [5, 0],
-        [0, 1],
         [5, 1],
         [5, 2],
         [5, 3],
@@ -117,7 +102,6 @@ function event1() {
         [5, 9],
         [5, 10],
         [5, 11],
-
         [3, 9],
       ]"
     />
