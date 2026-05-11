@@ -4,7 +4,6 @@ import Poppy from "../Poppy.vue";
 import Pnj from "../Pnj.vue";
 
 const stopAllPnj = inject("stopAllPnj");
-onUnmounted(() => stopAllPnj());
 const pnjMouvement = inject("pnjMouvement");
 const pnjPos1 = ref([0, 0]);
 const spriteLink1 = ref("");
@@ -16,6 +15,16 @@ const pnjPos4 = ref([0, 0]);
 const spriteLink4 = ref("");
 const peuxBouger = ref(false);
 provide("peuxBouger", peuxBouger);
+
+const sfx = new Audio("sound/sfx/chromatique2.wav");
+sfx.loop = true;
+sfx.play();
+
+onUnmounted(() => {
+  stopAllPnj();
+  sfx.pause();
+  sfx.src = "";
+});
 
 pnjMouvement(
   [

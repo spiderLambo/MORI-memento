@@ -1,12 +1,22 @@
 <script setup>
-import { ref, provide } from "vue";
+import { ref, provide, onUnmounted } from "vue";
 import Poppy from "../Poppy.vue";
 
 const peuxBouger = ref(false);
 provide("peuxBouger", peuxBouger);
 
+const sfx = new Audio("sound/sfx/chromatique1.wav");
+const sfxevent = new Audio("sound/sfx/chromatique1event.wav");
+sfx.loop = true;
+
+onUnmounted(() => {
+  sfx.pause();
+  sfx.src = "";
+});
+
 async function attendre(dure) {
   peuxBouger.value = false;
+  sfxevent.play();
   setTimeout(() => {
     peuxBouger.value = true;
   }, dure);
@@ -107,6 +117,7 @@ function onPoppyMove({ top, left }) {
 }
 
 peuxBouger.value = true;
+sfx.play();
 </script>
 
 <template>

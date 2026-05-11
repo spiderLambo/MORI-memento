@@ -1,5 +1,5 @@
 <script setup>
-import { inject, ref, provide } from "vue";
+import { inject, ref, provide, onUnmounted } from "vue";
 import Poppy from "../Poppy.vue";
 import Pnj from "../Pnj.vue";
 
@@ -8,6 +8,16 @@ const pnjPos = ref([0, 0]);
 const spriteLink = ref("");
 const peuxBouger = ref(false);
 provide("peuxBouger", peuxBouger);
+
+const anim1 = new Audio("sound/anim/palappapa2.mp3");
+const anim2 = new Audio("sound/anim/palappapa1.mp3");
+const sfx = new Audio("sound/sfx/palappapa1.mp3");
+sfx.loop = true;
+
+onUnmounted(() => {
+  sfx.pause();
+  sfx.src = "";
+});
 
 pnjMouvement(
   [
@@ -27,7 +37,11 @@ pnjMouvement(
 
 async function attendre(dure) {
   peuxBouger.value = false;
+  sfx.pause();
+  sfx.src = "";
   setTimeout(() => {
+    sfx.src = "sound/sfx/palappapa1.mp3";
+    sfx.play();
     peuxBouger.value = true;
   }, dure);
 }
@@ -46,6 +60,7 @@ let event1Positions = [
 function event1() {
   event1Declanche.value = true;
   spriteType.value = 2;
+  anim2.play();
   attendre(3500);
   pnjMouvement(
     [
@@ -71,6 +86,7 @@ function onPoppyMove({ top, left }) {
 }
 
 attendre(5450);
+anim1.play();
 </script>
 
 <template>

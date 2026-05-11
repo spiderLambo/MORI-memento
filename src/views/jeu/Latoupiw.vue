@@ -1,5 +1,5 @@
 <script setup>
-import { inject, ref, provide } from "vue";
+import { inject, ref, provide, onUnmounted } from "vue";
 import Poppy from "../Poppy.vue";
 import Pnj from "../Pnj.vue";
 
@@ -14,6 +14,14 @@ const pnjPos4 = ref([0, 0]);
 const spriteLink4 = ref("");
 const peuxBouger = ref(false);
 provide("peuxBouger", peuxBouger);
+
+const sfx = new Audio("sound/sfx/palappapa1.mp3");
+sfx.loop = true;
+
+onUnmounted(() => {
+  sfx.pause();
+  sfx.src = "";
+});
 
 pnjMouvement(
   [
@@ -73,6 +81,7 @@ pnjMouvement(
 );
 
 peuxBouger.value = true;
+sfx.play();
 </script>
 
 <template>
