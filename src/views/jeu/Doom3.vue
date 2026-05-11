@@ -4,6 +4,22 @@ import Poppy from "../Poppy.vue";
 import Pnj from "../Pnj.vue";
 import { useRouter } from "vue-router";
 
+const room0 = inject("room0");
+const room1 = inject("room1");
+const room2 = inject("room2");
+const room3 = inject("room3");
+const room4 = inject("room4");
+const room0SpawnPos = inject("room0SpawnPos");
+const room0SpawnDir = inject("room0SpawnDir");
+
+room0.value = false;
+room1.value = false;
+room2.value = false;
+room3.value = false;
+room4.value = false;
+room0SpawnPos.value = [0, 5];
+room0SpawnDir.value = "hautbas";
+
 const router = useRouter();
 const peuxBouger = ref(false);
 provide("peuxBouger", peuxBouger);
@@ -106,8 +122,11 @@ function event1() {
     texte.value = -6;
   }, 29200);
   setTimeout(() => {
-    router.push("/");
+    texte.value = -7;
   }, 31200);
+  setTimeout(() => {
+    router.push("/");
+  }, 32000);
 }
 
 function onPoppyMove({ top, left }) {
@@ -286,6 +305,9 @@ function onPoppyMove({ top, left }) {
       ><h1 class="texte3" :style="{ zIndex: 500 }">
         Merci Charlotte Missaa
       </h1></Transition
+    >
+    <Transition v-else-if="texte == -7" name="fade"
+      ><h1 class="texte3" :style="{ zIndex: 500 }">&#60;3</h1></Transition
     >
   </section>
 </template>

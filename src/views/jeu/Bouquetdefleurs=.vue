@@ -89,8 +89,12 @@ attendre(19200);
     <Pnj :position="position" :sprite="sprite" />
     <Transition name="fade">
       <h1 v-if="texte == 1" id="Texte1">J'suis perdu dans la fo-forêt</h1>
-      <h1 v-else-if="texte == 2" id="Texte2">J'ai peur et j'suis terrifié</h1>
-      <h1 v-else-if="texte == 3" id="Texte3">J'connais le vice de TKKF</h1>
+      <h1 v-else-if="texte == 2 || texte == 3" id="Texte2">
+        J'ai peur et j'suis terrifié
+      </h1>
+      <h1 v-else-if="texte == 3 || texte == 4" id="Texte3">
+        J'connais le vice de TKKF
+      </h1>
       <h1 v-else-if="texte == 4" id="Texte4">Comment</h1>
       <h1 v-else-if="texte == 5" id="Texte4">pourrai-je</h1>
       <h1 v-else-if="texte == 6" id="Texte4">aimer</h1>
@@ -178,10 +182,10 @@ section {
     z-index: 100;
 
     &#Texte1 {
-      animation: text1 1.5s ease-out 1;
+      animation: text1 3s ease-out 1;
     }
     &#Texte2 {
-      animation: text2 1.5s ease-out 1;
+      animation: text2 3s ease-out 1;
     }
     &#Texte3 {
       position: fixed;
